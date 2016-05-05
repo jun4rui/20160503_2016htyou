@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="GBK">
+	<base href="http://www.htyou.com">
+	<meta http-equiv="x-ua-compatible" content="IE=7">
+	<meta name="KeyWords" content="湖南华天国际旅行社,湖南华天国旅,长沙旅行社,湖南旅行社"/>
+	<meta name="description" content="湖南华天国际旅行社有限责任公司是华天实业控股集团有限公司控股子公司，具有经营大陆居民赴台湾旅游 业务资质，可直接经营出境、入境、国内旅游业务，是中国国际航空运输协会（IATA）和中国国家民航总局批准的国际、国内客运代理人。湖南华 天国旅是省内首家进入并九度跻身“全国百强国际旅行社”的旅行社"/>
+	<title>华天旅游网 - 湖南华天国际旅行社官方网站</title>
+
+	<script src="/static/jslib/jquery/jquery-1.12.3.min.js" charset="utf-8"></script>
+	<script src="/static/jslib/avalon1.5/avalon.js" charset="utf-8"></script>
+	<!--[if lte IE 8]><script type="text/javascript" src="/static/2016/excanvas.js"></script><![endif]-->
+
+	<script src="/static/2016/common.js" charset="GBK"></script>
+	<link rel="stylesheet" href="/static/2016/common.css">
+
+</head>
+<body>
+<!--临时头部-->
+<div id="header-body"></div>
+<!--/临时头部-->
+
+<!--上部大型画廊/功能导航区域: 背景显示大图，控制块的右下角，左侧为功能导航区域-->
+<style>
+	#gallery-section {
+		width: 100%;
+		margin: 0 auto;
+	}
+	#gallery-section>.content-section {
+		width:1204px;
+		height: 448px;
+		margin:0 auto;
+		position: relative;
+	}
+</style>
+<div id="gallery-section" style="background:url(/static/2016/test-gallery1.png) no-repeat top center;">
+	<!--内容容器区域-->
+	<div class="content-section">
+		<!--画廊控制块区域-->
+		<style>
+			.gallery-controller {
+				position: absolute;
+				z-index: 2;
+				right:2px;
+				bottom:14px;
+			}
+
+			.controller-unit {
+				width: 128px;
+				height: 47px;
+				margin-left: 1px;
+				padding: 14px 0;
+				float: left;
+				color: #FFF;
+				font-size: 14px;
+				line-height: 150%;
+				text-align: center;
+				background-color: rgba(0, 0, 0, 0.6);
+				cursor: pointer;
+			}
+			.controller-arrow {
+				width: 20px;
+				height: 10px;
+				background: url('data:image/png;base64,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');
+				position: absolute;
+				left: 570px;
+				top: -10px;
+			}
+			.controller-unit.active {
+				background:#FF7C08;
+			}
+		</style>
+		<div class="gallery-controller">
+			<div class="controller-unit">上海迪士尼<br>限量发售</div>
+			<div class="controller-unit">王牌强势归来<br>淡季最酷玩法</div>
+			<div class="controller-unit">1元办美签<br>美国爆款6999</div>
+			<div class="controller-unit">周末&小长假<br>满2000减100</div>
+			<div class="controller-unit active">聚"惠"欧洲<br>最高立减1000元</div>
+			<div class="controller-unit">遨游研学<br>移动的小课堂</div>
+			<div class="controller-arrow"></div>
+			<div class="clear"></div>
+		</div>
+		<script>
+			$('.gallery-controller').delegate('.controller-unit', 'click', function(){
+				//消除当前active
+				$('.gallery-controller .controller-unit.active').removeClass('active');
+				//为点击对象加入active
+				$(this).addClass('active');
+				$('.gallery-controller .controller-arrow').css({left:129*$(this).index()+54});
+				//更换背景图片
+				console.log('[Click] controller-unit.'+$(this).index());
+			});
+		</script>
+		<!--/画廊控制块区域-->
+		<!--功能导航区域-->
+		<!--/功能导航区域-->
+	</div>
+	<!--/内容容器区域-->
+</div>
+<!--/上部大型画廊/功能导航区域-->
+
+
+<!--特价旅游-->
+<style>
+	#tejia {
+		width:1176px;
+		height:367px;
+		margin:0 auto;
+		margin-top:24px;
+		position:relative;
+	}
+	#tejia>.title {
+		display: block;
+		height:50px;
+		background: url(/static/2016/title_tejia.png) no-repeat top left;
+	}
+	#tejia .tejia-panel {
+		display:block;
+	}
+</style>
+
+<style>
+	.tejia-unit {
+		margin-top:1px;
+		width:292px;
+		height:313px;
+		float:left;
+		border:1px solid #e5e5e5;
+		border-left:0;
+		background-color: #FFF;
+		position:relative;
+	}
+	.tejia-panel>.tejia-unit:first-child {
+		border-left:1px solid #e5e5e5 !important;
+	}
+	.tejia-unit:hover {
+		border-top:2px solid #ff7c08;
+		margin-top:0;
+		box-shadow: -1px 0px 3px #9E9E9E;
+	}
+	.tejia-unit .image {
+		margin:13px 13px;
+		width: 266px;
+		height:203px;
+		background-size: cover;
+		background-position: center center;
+		position:relative;
+	}
+	.tejia-unit .discount {
+		width:90px;
+		height:24px;
+		font:14px/24px '宋体','新宋体', simsun;
+		font-weight:bold;
+		color:#FFF;
+		background-image: url(/static/2016/bg_discount.png);
+		position: absolute;
+		left:0;
+		top:0;
+		z-index: 9;
+		text-indent: 5px;
+	}
+	.tejia-unit>.image>.title {
+		width:100%;
+		box-sizing: border-box;
+		height:32px;
+		font:12px/32px '宋体','新宋体', simsun;
+		color:#FFF;
+		background: rgba(0,0,0,.5);
+		padding:0 5px;
+		overflow:hidden;
+		position: absolute;
+		bottom:0;
+		left:0;
+		z-index: 9;
+	}
+
+	.tejia-unit .btn-buy {
+		width:88px;
+		height:88px;
+		position: absolute;
+		right: 6px;
+		bottom:0;
+		cursor: pointer;
+		background-image: url(/static/2016/btn_buynow.png);
+	}
+	.tejia-unit .price {
+		font:25px/100% '微软雅黑','Microsoft YaHei UI';
+		color:#FF7C08;
+		margin:0 13px;
+		margin-top: 20px;
+	}
+	.tejia-unit .price span {
+		font-size: 35px;
+		margin: 0 8px;
+	}
+	.tejia-unit .old-price {
+		font:18px/100% Arial;
+		color:#959595;
+		margin:10px 13px 0 13px;
+		text-decoration: line-through;
+	}
+</style>
+
+<div id="tejia">
+	<!--标题-->
+	<div class="title"></div>
+	<!--/标题-->
+	<!--特价信息面板-->
+	<div class="tejia-panel">
+		<!--特价信息单元-->
+		<div class="tejia-unit">
+			<div class="image" style="background-image:url(http://www.htyou.com/pic/adpic/2016-04-29_16-54-46_2323.jpg)">
+				<div class="discount">立省&yen;350</div>
+				<div class="title">（湘阴）左宗棠文化园、纪念馆、东湖风筝节亲子一日游（05月）</div>
+			</div>
+			<div class="price">&yen;<span>99</span>起</div>
+			<div class="old-price">&yen;123</div>
+			<div class="btn-buy"></div>
+		</div>
+		<!--/特价信息单元-->
+		<!--特价信息单元-->
+		<div class="tejia-unit">
+			<div class="image" style="background-image:url(http://www.htyou.com/pic/adpic/2016-04-29_17-01-29_0453.jpg)">
+				<div class="discount">立省&yen;3333</div>
+				<div class="title">（北京）惠游京津---北京天津单卧单飞纯玩六日</div>
+			</div>
+			<div class="price">&yen;<span>1299</span>起</div>
+			<div class="old-price">&yen;2487</div>
+			<div class="btn-buy"></div>
+		</div>
+		<!--/特价信息单元-->
+		<!--特价信息单元-->
+		<div class="tejia-unit">
+			<div class="image" style="background-image: url(http://www.htyou.com/pic/adpic/2016-04-20_16-17-34_2772.jpg)">
+				<div class="discount">立省&yen;33340</div>
+				<div class="title">（贵州）故事镇远单卧单高三日游</div>
+			</div>
+			<div class="price">&yen;<span>33399</span>起</div>
+			<div class="old-price">&yen;1237</div>
+			<div class="btn-buy"></div>
+		</div>
+		<!--/特价信息单元-->
+		<div class="clear"></div>
+	</div>
+	<!--/特价信息面板-->
+	<!--用户登陆/信息等-->
+	<style>
+		.user-info {
+			width:280px;
+			height:365px;
+			border:1px solid #e5e5e5;
+			position:absolute;
+			right:0;
+			top:0;
+			text-align: center;
+		}
+		.user-info>.image-face {
+			width:89px;
+			height:89px;
+			border-radius:50%;
+			border:3px solid #FFF;
+			box-shadow: 0 0 3px rgba(0,0,0,.5);
+			overflow:hidden;
+			margin:23px auto 0 auto;
+		}
+		.user-info>.image-face>img {
+			width:100%;
+			height:100%;
+		}
+		.user-info>.welcome-str {
+			font:14px/36px '微软雅黑', 'Microsoft YaHei';
+			color:#535353;
+			margin:0 auto;
+			text-align: center;
+		}
+		#canvas-panel {
+			border-top: 1px solid #e5e5e5;
+			padding-top: 20px;
+		}
+		.user-function {
+			background:url(/static/2016/btn_user.png);
+			width:278px;
+			height:50px;
+			margin:0 auto;
+			position:relative;
+		}
+		.user-function>a>.btn-login {
+			position: absolute;
+			width: 120px;
+			height: 36px;
+			left: 10px;
+			top: 7px;
+		}
+		.user-function>a>.btn-reg {
+			position: absolute;
+			width: 120px;
+			height: 36px;
+			left: 140px;
+			top: 7px;
+		}
+	</style>
+	<div class="user-info">
+		<div class="image-face">
+			<img src="/static/2016/default_face.jpg" alt="">
+		</div>
+		<div class="welcome-str">
+			Hi！欢迎来到华天旅游网
+		</div>
+		<div class="user-function">
+			<a href="#">
+				<div class="btn-login"></div>
+			</a>
+			<a href="">
+				<div class="btn-reg"></div>
+			</a>
+		</div>
+		<canvas id="canvas-panel" width="270" height="120"></canvas>
+		<script>
+			$(document).ready(function(){
+				var canvas = document.getElementById('canvas-panel');
+				var ctx = canvas.getContext('2d');
+				ctx.beginPath();
+				ctx.arc(60, 60, 52, Math.PI*1.5, Math.PI*1.4);
+				//ctx.arc(200, 200, 115, 0, Math.PI*1.5);
+				var gradient=ctx.createLinearGradient(0,0,110,0);
+				gradient.addColorStop("0","#ff8b07");
+				//gradient.addColorStop("0.1","#ff8b07");
+				gradient.addColorStop("1.0","#fff000");
+				ctx.shadowColor = '#555555';
+				ctx.shadowOffsetX = 0;
+				ctx.shadowOffsetY = 0;
+				ctx.shadowBlur = 2;
+				ctx.strokeStyle=gradient;
+				ctx.lineWidth=7;
+				ctx.stroke();
+				ctx.shadowBlur = 0;
+				//写字
+				ctx.fillStyle = '#535353';
+				ctx.font = '16px 微软雅黑';
+				ctx.fillText('最新满意度', 20	, 50);
+				ctx.fillStyle = '#ff7c08';
+				ctx.font = '35px Arial';
+				ctx.fillText('98%',26,86);
+				ctx.fillStyle = '#62c3d0';
+				ctx.font = '20px 微软雅黑';
+				ctx.fillText('湖南电子商务',127, 40);
+				ctx.fillText('诚信示范企业',127, 65);
+				ctx.fillStyle = '#535353';
+				ctx.font = '12px 宋体';
+				ctx.fillText('全国旅游系统先进集体',127, 90);
+			});
+		</script>
+	</div>
+	<!--/用户登录/信息等-->
+</div>
+<!--/特价旅游-->
+
+<!--出境旅游-->
+<!--/出境旅游-->
+
+<!--国内旅游-->
+<!--/国内旅游-->
+
+<!--周边旅游-->
+<!--/周边旅游-->
+
+<!--邮轮-->
+<!--/邮轮-->
+
+<!--下部长条广告-->
+<!--/下部长条广告-->
+
+<!--达人点评-->
+<!--/达人点评-->
+
+<!--下部4幅广告组-->
+<!--/下部4幅广告组-->
+
+<!--右侧功能条-->
+<!--/右侧功能条-->
+
+<!--临时底部 -->
+<div id="footer-body"></div>
+<!--/临时底部-->
+<script>
+	$(document).ready(function () {
+		$('#header-body').load('/static/2016/test-header.html');
+		$('#footer-body').load('/static/2016/test-footer.html');
+	});
+</script>
+</body>
+</html>

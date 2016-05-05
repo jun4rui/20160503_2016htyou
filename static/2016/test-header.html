@@ -1,0 +1,317 @@
+<style>
+	#header-section {
+		width: 1176px;
+		height: 158px;
+		margin: 0 auto;
+		position: relative;
+	}
+
+	#header-section > .logo-section {
+		width: 268px;
+		height: 91px;
+		background: url(/static/2016/htyou_logo.png) no-repeat center center;
+		position: absolute;
+		top: 55px;
+		left: 0;
+		z-index: 99;
+	}
+
+	#header-section > .hotline-section {
+		width: 254px;
+		height: 83px;
+		background: url(/static/2016/hotline.png) no-repeat center center;
+		position: absolute;
+		top: 66px;
+		right: 0;
+		z-index: 99;
+	}
+
+	#header-body {
+		width: 100%;
+		background: url(/static/2016/header_bg.png) repeat-x top center;
+		position: relative;
+		z-index: 100;
+
+	}
+
+	#header-body > .header-left-bg {
+		width: 245px;
+		height: 132px;
+		position: absolute;
+		left: 0;
+		top: 47px;
+		background: url(/static/2016/header_left_bg.jpg) no-repeat;
+		z-index: 1;
+	}
+
+	#header-body > .header-right-bg {
+		width: 308px;
+		height: 132px;
+		position: absolute;
+		right: 0;
+		top: 33px;
+		background: url(/static/2016/header_right_bg.jpg) no-repeat;
+		z-index: 1;
+	}
+</style>
+<div id="header-section">
+	<!--顶部区域-->
+	<style>
+		#top-section {
+			font: 12px '新宋体', '宋体', simsun;
+			position: relative;
+			z-index: 9999;
+		}
+
+		#top-section span {
+			color: #D3D3D3;
+			padding: 0 6px;
+		}
+
+		#top-section a {
+			color: #8C8C8C;
+		}
+
+		.top-left {
+			position: absolute;
+			top: 8px;
+			left: 0;
+		}
+
+		.top-right {
+			position: absolute;
+			right: 105px;
+			top: 8px;
+		}
+
+		#top-section .weibo {
+			position: absolute;
+			top: 2px;
+			right: 72px;
+		}
+
+		#top-section .phone {
+			position: absolute;
+			top: 2px;
+			right: 36px;
+		}
+
+		#top-section .weixin {
+			position: absolute;
+			top: 2px;
+			right: 0;
+		}
+	</style>
+	<div id="top-section">
+		<div class="top-left">
+			<a href="/login.htm" target="_self">会员登录</a>
+			<span>|</span>
+			<a href="/register.htm" target="_blank">会员注册</a>
+		</div>
+		<div class="top-right">
+			<a href="/user/club_home.action" target="_blank">会员俱乐部</a>
+			<span>|</span>
+			<a href="#" target="_blank" onclick="alert('建设中，敬请期待！');return false;">网站地图</a>
+			<span>|</span>
+		</div>
+		<a href="http://weibo.com/p/1006062179063294" class="weibo toppanel-icon"><img src="/images/2015_2/icon_weibo.png" alt=""></a>
+		<a href="/page/single/dload_mobile.htm" class="phone toppanel-icon" onmousemove="$('.panel-popup').hide();panelpopupShow('#phone-panel-popup');return false;" onmouseout="panelpopupHide();return false;"><img src="/images/2015_2/icon_phone.png" alt=""></a>
+		<a href="#" class="weixin toppanel-icon" onmousemove="$('.panel-popup').hide();panelpopupShow('#weixin-panel-popup');return false;" onmouseout="panelpopupHide();return false;"><img src="/images/2015_2/icon_weixin.png" alt=""></a>
+		<!--微信区域-->
+		<style>
+			.popup-title {
+				display: block;
+				height: 24px;
+				position: relative;
+				color: #797878;
+				font: 13px MSYH, '微软雅黑';
+				line-height: 24px;
+				text-indent: 10px;
+			}
+
+			.popup-title img.button-close {
+				position: absolute;
+				width: 19px;
+				height: 19px;
+				right: 4px;
+				top: 4px;
+				cursor: pointer;
+			}
+
+			.popup-title .arrow {
+				position: absolute;
+				top: 10px;
+				width: 27px;
+				height: 23px;
+				background: url(/images/2015_1/arrow_up.png);
+				background-size: cover;
+				position: absolute;
+				top: -22px;
+				right: 100px;
+				z-index: 999;
+			}
+
+			.panel-popup {
+				width: 400px;
+				height: 300px;
+				box-shadow: 1px 1px 10px #555;
+				behavior: url(/common/pie/PIE.htc);
+				background: #FFF;
+				position: absolute;
+				top: 38px;
+				z-index: 99;
+				border-radius: 5px;
+				/*opacity: 1;*/
+				/*filter: alpha(opacity=1);*/
+				display: none;
+			}
+
+			.popup-content {
+				position: relative;
+			}
+
+			#weixin-panel-popup {
+				right: 0px;
+			}
+
+			#weixin-panel-popup .arrow {
+				right: 0px;
+			}
+
+		</style>
+		<script>
+			$(document).ready(function () {
+				$.getJSON('/common/websinfo_queryWebsInfos.action?submit=ajax&infoClass=694', function (result) {
+					$('#weixin-panel-popup').css('background', 'url(/' + result[0].info_thumbpic + ')');
+				});
+			});
+		</script>
+		<div id="weixin-panel-popup" class="panel-popup" onmouseover="panelpopupShow('weixin-panel-popup')" onmouseout="panelpopupHide();" style="background: url(&quot;/pic/news/2015-05-20_10-54-37_0901.png&quot;);">
+			<!--<div class="popup-title" onclick="$('#weixin-panel-popup').hide();">-->
+			<div class="popup-title">
+				<!--<img class="button-close" src="/images/2015_1/icon_close.png" alt=""/>-->
+				<div class="arrow"></div>
+			</div>
+			<div class="popup-content"></div>
+		</div>
+		<!--/微信区域-->
+		<!--手机端区域-->
+		<div id="phone-panel-popup" class="panel-popup" onmouseover="panelpopupShow('phone-panel-popup')" onmouseout="panelpopupHide();" style="right:0px; width:200px; height:272px; background:url(/images/2016/mob2wei.png)">
+			<!--<div class="popup-title">
+				<div class="arrow" style="right:36px;"></div>
+			</div>-->
+			<a href="http://www.htyou.com/page/single/dload_mobile.htm">
+				<div class="popup-content" style="height:272px;"></div>
+			</a>
+		</div>
+		<!--/手机端区域-->
+	</div>
+	<!--/顶部区域-->
+	<!--logo区域 开始-->
+	<style>
+		.logo-section {
+
+		}
+	</style>
+	<div class="logo-section"></div>
+	<!--logo区域 结束-->
+	<!--搜索栏区域 开始-->
+	<style>
+
+		.search-section {
+			background-color: #62C3D0;
+			width: 544px;
+			height: 45px;
+			position: absolute;
+			top: 78px;
+			left: 340px;
+			z-index: 99;
+		}
+
+		.search-section #KeyWords {
+			border: 0px;
+			padding: 0 5px;
+			width: 468px;
+			margin: 3px;
+			height: 39px;
+			background-color: #FFF;
+			color: #8C8C8C;
+		}
+
+		.search-section .submit-button {
+			background: url(/static/2016/search_btn.png) no-repeat center center;
+			border: 0;
+			display: inline-block;
+			width: 52px;
+			height: 39px;
+			line-height: 39px;
+			cursor: pointer;
+		}
+	</style>
+	<div class="search-section">
+		<form id="querytour" action="/tour/tourpro_listAndFilterProWithQuery.action" target="_blank" method="post">
+			<input type="text" name="KeyWords" id="KeyWords" class="text-input" placeholder="请输入你要搜索的线路">
+			<div class="submit-button" onclick="$('#querytour').submit();">&nbsp;</div>
+		</form>
+	</div>
+	<!--搜索栏区域 结束-->
+	<!--热线区域 开始-->
+	<div class="hotline-section">
+
+	</div>
+	<!--热线区域 结束-->
+</div>
+<!--左侧背景花纹-->
+<div class="header-left-bg"></div>
+<!--右侧背景花纹-->
+<div class="header-right-bg"></div>
+<!--导航条-->
+<style>
+	#nav-panel {
+		background: url(/static/2016/nav.png) no-repeat top center;
+		z-index: 99;
+		width: 100%;
+		height: 53px;
+	}
+	#nav-panel>.nav-section {
+		width:1202px;
+		height:53px;
+		margin:0 auto;
+	}
+
+	#nav-panel .nav-unit {
+		height: 54px;
+		/*background:#F00;*/
+		float:left;
+		cursor: pointer;
+	}
+</style>
+<div id="nav-panel">
+	<div class="nav-section">
+		<a href="">
+			<div class="nav-unit" style="width:108px;"></div>
+		</a>
+		<a href="">
+			<div class="nav-unit" style="width:125px;"></div>
+		</a>
+		<a href="">
+			<div class="nav-unit" style="width:125px;"></div>
+		</a>
+		<a href="">
+			<div class="nav-unit" style="width:125px;"></div>
+		</a>
+		<a href="">
+			<div class="nav-unit" style="width:125px;"></div>
+		</a>
+		<a href="">
+			<div class="nav-unit" style="width:125px;"></div>
+		</a>
+		<a href="">
+			<div class="nav-unit" style="width:135px;"></div>
+		</a>
+		<a href="">
+			<div class="nav-unit" style="width:125px;"></div>
+		</a>
+	</div>
+</div>
+<!--/导航条-->
