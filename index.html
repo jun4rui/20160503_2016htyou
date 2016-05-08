@@ -265,8 +265,8 @@
 			margin:23px auto 0 auto;
 		}
 		.user-info>.image-face>img {
-			width:100%;
-			height:100%;
+			height: 100%;
+			margin: 0 auto;
 		}
 		.user-info>.welcome-str {
 			font:14px/36px '微软雅黑', 'Microsoft YaHei';
@@ -357,7 +357,7 @@
 </div>
 <!--/特价旅游-->
 
-<!--出境旅游-->
+<!--section公共样式-->
 <style>
 	.section {
 		width: 1176px;
@@ -495,7 +495,8 @@
 		font-size:25px;
 	}
 </style>
-
+<!--/section公公样式-->
+<!--出境旅游-->
 <style>
 	#chujingyou>.title {
 		background: url(/static/2016/title_chujingyou.png) top left no-repeat;
@@ -617,12 +618,366 @@
 <!--/出境旅游-->
 
 <!--国内旅游-->
+<style>
+	#guoneiyou>.title {
+		background: url(/static/2016/title_guoneiyou.png) top left no-repeat;
+	}
+	#guoneiyou>.title>.tab-panel>.tab-unit.active,
+	#guoneiyou>.title>.tab-panel>.tab-unit:hover,
+	#guoneiyou>.title>.tab-panel>.tab-title {
+		color: #ff387d;
+	}
+	#guoneiyou>.title>.tab-panel>.tab-unit.active {
+		background: url(/static/2016/point_guoneiyou.png) bottom center no-repeat;
+	}
+	#guoneiyou>.content>.pointlist-panel>.point-title>span {
+		color: #ff387d;
+		border:1px solid #ff387d;
+	}
+
+</style>
+<div id="guoneiyou" class="section">
+	<div class="title">
+		<ul class="tab-panel">
+			<li class="tab-title">热门主题:</li>
+			<li class="tab-unit active">精选</li>
+			<li class="tab-unit">日本</li>
+			<li class="tab-unit">欧洲</li>
+			<li class="tab-unit">泰国</li>
+			<li class="tab-unit">长滩岛</li>
+			<li class="tab-unit">泰国</li>
+			<li class="tab-unit">韩国</li>
+			<li class="tab-unit">澳大利亚</li>
+			<div class="clear"></div>
+		</ul>
+		<a href="" class="morelink">更多产品&gt;&gt;</a>
+	</div>
+	<div class="content">
+		<!--左侧列表,广告区域-->
+		<div class="pointlist-panel">
+			<div class="point-title">
+				<span>出境自由行</span>
+			</div>
+			<div class="point-list">
+				<a href="">乐活精品半自由行</a>
+				<a href="">巴厘岛</a>
+				<a href="">普吉岛</a>
+				<a href="">泰国</a>
+				<a href="">Club Med</a>
+				<a href="">日本</a>
+				<a href="">台湾</a>
+				<a href="">韩国</a>
+				<a href="">新加坡</a>
+				<a href="">清迈</a>
+				<a href="">西班牙</a>
+				<a href="">希腊</a>
+				<a href="">俄罗斯</a>
+			</div>
+			<div class="point-title">
+				<span>出境跟团游</span>
+			</div>
+			<div class="point-list">
+				<a href="">乐活精品半自由行</a>
+				<a href="">巴厘岛</a>
+				<a href="">普吉岛</a>
+				<a href="">泰国</a>
+				<a href="">Club Med</a>
+				<a href="">日本</a>
+				<a href="">台湾</a>
+				<a href="">韩国</a>
+				<a href="">新加坡</a>
+				<a href="">清迈</a>
+				<a href="">西班牙</a>
+				<a href="">希腊</a>
+				<a href="">俄罗斯</a>
+			</div>
+			<div class="section-ad-left-panel">
+				<a href=""><img src="/static/2016/ad_guoneiyou_left.png" alt=""></a>
+			</div>
+		</div>
+		<!--/左侧列表,广告区域-->
+		<!--中间线路展示区域-->
+		<div class="tourlist-panel">
+			<!--线路展示模块-->
+			<div class="tour-unit">
+				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-7.jpg" alt="">
+				<div class="text">（海岛）长滩6天5晚浪漫游</div>
+				<div class="price">&yen;<span>999</span>起</div>
+			</div>
+			<!--/线路展示模块-->
+			<!--线路展示模块-->
+			<div class="tour-unit">
+				<img src="http://www.htyou.com/pic/photo/ce8a7b5b29673d33257febd03fb904ad-1.jpg" alt="">
+				<div class="text">（新马波德申）自在旅游新马波德申六日乐享游</div>
+				<div class="price">&yen;<span>9999</span>起</div>
+			</div>
+			<!--/线路展示模块-->
+			<!--线路展示模块-->
+			<div class="tour-unit">
+				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-9.jpg" alt="">
+				<div class="text">（海岛）长滩6天5晚尊享游</div>
+				<div class="price">&yen;<span>99999</span>起</div>
+			</div>
+			<!--/线路展示模块-->
+			<!--线路展示模块-->
+			<div class="tour-unit">
+				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-10.jpg" alt="">
+				<div class="text">（台湾）6月华航直航环岛八日（台北进出）（印象篇）</div>
+				<div class="price">&yen;<span>99999</span>起</div>
+			</div>
+			<!--/线路展示模块-->
+
+		</div>
+		<!--/中间线路展示区域-->
+		<!--右侧广告区域-->
+		<div class="section-ad-panel">
+			<a href=""><img src="/static/2016/ad_guoneiyou_right.png" alt=""></a>
+		</div>
+		<!--/右侧广告区域-->
+	</div>
+</div>
 <!--/国内旅游-->
 
 <!--周边旅游-->
+<style>
+	#zhoubianyou>.title {
+		background: url(/static/2016/title_zhoubianyou.png) top left no-repeat;
+	}
+	#zhoubianyou>.title>.tab-panel>.tab-unit.active,
+	#zhoubianyou>.title>.tab-panel>.tab-unit:hover,
+	#zhoubianyou>.title>.tab-panel>.tab-title {
+		color: #68c677;
+	}
+	#zhoubianyou>.title>.tab-panel>.tab-unit.active {
+		background: url(/static/2016/point_zhoubianyou.png) bottom center no-repeat;
+	}
+	#zhoubianyou>.content>.pointlist-panel>.point-title>span {
+		color: #68c677;
+		border:1px solid #68c677;
+	}
+
+</style>
+<div id="zhoubianyou" class="section">
+	<div class="title">
+		<ul class="tab-panel">
+			<li class="tab-title">热门主题:</li>
+			<li class="tab-unit active">精选</li>
+			<li class="tab-unit">日本</li>
+			<li class="tab-unit">欧洲</li>
+			<li class="tab-unit">泰国</li>
+			<li class="tab-unit">长滩岛</li>
+			<li class="tab-unit">泰国</li>
+			<li class="tab-unit">韩国</li>
+			<li class="tab-unit">澳大利亚</li>
+			<div class="clear"></div>
+		</ul>
+		<a href="" class="morelink">更多产品&gt;&gt;</a>
+	</div>
+	<div class="content">
+		<!--左侧列表,广告区域-->
+		<div class="pointlist-panel">
+			<div class="point-title">
+				<span>出境自由行</span>
+			</div>
+			<div class="point-list">
+				<a href="">乐活精品半自由行</a>
+				<a href="">巴厘岛</a>
+				<a href="">普吉岛</a>
+				<a href="">泰国</a>
+				<a href="">Club Med</a>
+				<a href="">日本</a>
+				<a href="">台湾</a>
+				<a href="">韩国</a>
+				<a href="">新加坡</a>
+				<a href="">清迈</a>
+				<a href="">西班牙</a>
+				<a href="">希腊</a>
+				<a href="">俄罗斯</a>
+			</div>
+			<div class="point-title">
+				<span>出境跟团游</span>
+			</div>
+			<div class="point-list">
+				<a href="">乐活精品半自由行</a>
+				<a href="">巴厘岛</a>
+				<a href="">普吉岛</a>
+				<a href="">泰国</a>
+				<a href="">Club Med</a>
+				<a href="">日本</a>
+				<a href="">台湾</a>
+				<a href="">韩国</a>
+				<a href="">新加坡</a>
+				<a href="">清迈</a>
+				<a href="">西班牙</a>
+				<a href="">希腊</a>
+				<a href="">俄罗斯</a>
+			</div>
+			<div class="section-ad-left-panel">
+				<a href=""><img src="/static/2016/ad_zhoubianyou_left.png" alt=""></a>
+			</div>
+		</div>
+		<!--/左侧列表,广告区域-->
+		<!--中间线路展示区域-->
+		<div class="tourlist-panel">
+			<!--线路展示模块-->
+			<div class="tour-unit">
+				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-7.jpg" alt="">
+				<div class="text">（海岛）长滩6天5晚浪漫游</div>
+				<div class="price">&yen;<span>999</span>起</div>
+			</div>
+			<!--/线路展示模块-->
+			<!--线路展示模块-->
+			<div class="tour-unit">
+				<img src="http://www.htyou.com/pic/photo/ce8a7b5b29673d33257febd03fb904ad-1.jpg" alt="">
+				<div class="text">（新马波德申）自在旅游新马波德申六日乐享游</div>
+				<div class="price">&yen;<span>9999</span>起</div>
+			</div>
+			<!--/线路展示模块-->
+			<!--线路展示模块-->
+			<div class="tour-unit">
+				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-9.jpg" alt="">
+				<div class="text">（海岛）长滩6天5晚尊享游</div>
+				<div class="price">&yen;<span>99999</span>起</div>
+			</div>
+			<!--/线路展示模块-->
+			<!--线路展示模块-->
+			<div class="tour-unit">
+				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-10.jpg" alt="">
+				<div class="text">（台湾）6月华航直航环岛八日（台北进出）（印象篇）</div>
+				<div class="price">&yen;<span>99999</span>起</div>
+			</div>
+			<!--/线路展示模块-->
+
+		</div>
+		<!--/中间线路展示区域-->
+		<!--右侧广告区域-->
+		<div class="section-ad-panel">
+			<a href=""><img src="/static/2016/ad_zhoubianyou_right.png" alt=""></a>
+		</div>
+		<!--/右侧广告区域-->
+	</div>
+</div>
 <!--/周边旅游-->
 
 <!--邮轮-->
+<style>
+	#youlun>.title {
+		background: url(/static/2016/title_youlun.png) top left no-repeat;
+	}
+	#youlun>.title>.tab-panel>.tab-unit.active,
+	#youlun>.title>.tab-panel>.tab-unit:hover,
+	#youlun>.title>.tab-panel>.tab-title {
+		color: #2e7ad7;
+	}
+	#youlun>.title>.tab-panel>.tab-unit.active {
+		background: url(/static/2016/point_youlun.png) bottom center no-repeat;
+	}
+	#youlun>.content>.pointlist-panel>.point-title>span {
+		color: #2e7ad7;
+		border:1px solid #2e7ad7;
+	}
+
+</style>
+<div id="youlun" class="section">
+	<div class="title">
+		<ul class="tab-panel">
+			<li class="tab-title">热门主题:</li>
+			<li class="tab-unit active">精选</li>
+			<li class="tab-unit">日本</li>
+			<li class="tab-unit">欧洲</li>
+			<li class="tab-unit">泰国</li>
+			<li class="tab-unit">长滩岛</li>
+			<li class="tab-unit">泰国</li>
+			<li class="tab-unit">韩国</li>
+			<li class="tab-unit">澳大利亚</li>
+			<div class="clear"></div>
+		</ul>
+		<a href="" class="morelink">更多产品&gt;&gt;</a>
+	</div>
+	<div class="content">
+		<!--左侧列表,广告区域-->
+		<div class="pointlist-panel">
+			<div class="point-title">
+				<span>出境自由行</span>
+			</div>
+			<div class="point-list">
+				<a href="">乐活精品半自由行</a>
+				<a href="">巴厘岛</a>
+				<a href="">普吉岛</a>
+				<a href="">泰国</a>
+				<a href="">Club Med</a>
+				<a href="">日本</a>
+				<a href="">台湾</a>
+				<a href="">韩国</a>
+				<a href="">新加坡</a>
+				<a href="">清迈</a>
+				<a href="">西班牙</a>
+				<a href="">希腊</a>
+				<a href="">俄罗斯</a>
+			</div>
+			<div class="point-title">
+				<span>出境跟团游</span>
+			</div>
+			<div class="point-list">
+				<a href="">乐活精品半自由行</a>
+				<a href="">巴厘岛</a>
+				<a href="">普吉岛</a>
+				<a href="">泰国</a>
+				<a href="">Club Med</a>
+				<a href="">日本</a>
+				<a href="">台湾</a>
+				<a href="">韩国</a>
+				<a href="">新加坡</a>
+				<a href="">清迈</a>
+				<a href="">西班牙</a>
+				<a href="">希腊</a>
+				<a href="">俄罗斯</a>
+			</div>
+			<div class="section-ad-left-panel">
+				<a href=""><img src="/static/2016/ad_youlun_left.png" alt=""></a>
+			</div>
+		</div>
+		<!--/左侧列表,广告区域-->
+		<!--中间线路展示区域-->
+		<div class="tourlist-panel">
+			<!--线路展示模块-->
+			<div class="tour-unit">
+				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-7.jpg" alt="">
+				<div class="text">（海岛）长滩6天5晚浪漫游</div>
+				<div class="price">&yen;<span>999</span>起</div>
+			</div>
+			<!--/线路展示模块-->
+			<!--线路展示模块-->
+			<div class="tour-unit">
+				<img src="http://www.htyou.com/pic/photo/ce8a7b5b29673d33257febd03fb904ad-1.jpg" alt="">
+				<div class="text">（新马波德申）自在旅游新马波德申六日乐享游</div>
+				<div class="price">&yen;<span>9999</span>起</div>
+			</div>
+			<!--/线路展示模块-->
+			<!--线路展示模块-->
+			<div class="tour-unit">
+				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-9.jpg" alt="">
+				<div class="text">（海岛）长滩6天5晚尊享游</div>
+				<div class="price">&yen;<span>99999</span>起</div>
+			</div>
+			<!--/线路展示模块-->
+			<!--线路展示模块-->
+			<div class="tour-unit">
+				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-10.jpg" alt="">
+				<div class="text">（台湾）6月华航直航环岛八日（台北进出）（印象篇）</div>
+				<div class="price">&yen;<span>99999</span>起</div>
+			</div>
+			<!--/线路展示模块-->
+
+		</div>
+		<!--/中间线路展示区域-->
+		<!--右侧广告区域-->
+		<div class="section-ad-panel">
+			<a href=""><img src="/static/2016/ad_youlun_right.png" alt=""></a>
+		</div>
+		<!--/右侧广告区域-->
+	</div>
+</div>
 <!--/邮轮-->
 
 <!--下部长条广告-->
