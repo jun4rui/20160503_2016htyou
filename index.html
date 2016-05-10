@@ -3,7 +3,7 @@
 <head>
 	<meta charset="GBK">
 	<base href="http://www.htyou.com">
-	<meta http-equiv="x-ua-compatible" content="IE=7">
+	<meta http-equiv="x-ua-compatible" content="IE=8">
 	<meta name="KeyWords" content="湖南华天国际旅行社,湖南华天国旅,长沙旅行社,湖南旅行社"/>
 	<meta name="description" content="湖南华天国际旅行社有限责任公司是华天实业控股集团有限公司控股子公司，具有经营大陆居民赴台湾旅游 业务资质，可直接经营出境、入境、国内旅游业务，是中国国际航空运输协会（IATA）和中国国家民航总局批准的国际、国内客运代理人。湖南华 天国旅是省内首家进入并九度跻身“全国百强国际旅行社”的旅行社"/>
 	<title>华天旅游网 - 湖南华天国际旅行社官方网站</title>
@@ -14,6 +14,7 @@
 
 	<script src="/static/2016/common.js" charset="GBK"></script>
 	<link rel="stylesheet" href="/static/2016/common.css">
+
 
 </head>
 <body>
@@ -876,7 +877,35 @@
 		color: #2e7ad7;
 		border:1px solid #2e7ad7;
 	}
-
+	/*邮轮模块独有的四行邮轮菜单*/
+	#youlun #ship-list {
+		padding:0;
+		margin:0;
+	}
+	#youlun #ship-list>.ship-unit {
+		background: url(/static/2016/logo_youlun.png) no-repeat 20px 18px;
+		width:282px;
+		height:67px;
+		border:1px solid #e5e5e5;
+		border-top:0;
+		font:20px/22px '微软雅黑','Microsoft YaHei';
+		color:#2E7AD7;
+		box-sizing: border-box;
+		padding-top: 12px;
+		padding-left: 98px;
+		cursor: pointer;
+	}
+	#youlun #ship-list a {
+		color:#2E7AD7;
+	}
+	#youlun #ship-list .ship-unit span {
+		font:12px/22px '宋体', simsun;
+		color:#959595;
+		display:block;
+	}
+	#youlun #ship-list .ship-unit:hover {
+		background-color:#FFF;
+	}
 </style>
 <div id="youlun" class="section">
 	<div class="title">
@@ -897,42 +926,34 @@
 	<div class="content">
 		<!--左侧列表,广告区域-->
 		<div class="pointlist-panel">
-			<div class="point-title">
-				<span>出境自由行</span>
-			</div>
-			<div class="point-list">
-				<a href="">乐活精品半自由行</a>
-				<a href="">巴厘岛</a>
-				<a href="">普吉岛</a>
-				<a href="">泰国</a>
-				<a href="">Club Med</a>
-				<a href="">日本</a>
-				<a href="">台湾</a>
-				<a href="">韩国</a>
-				<a href="">新加坡</a>
-				<a href="">清迈</a>
-				<a href="">西班牙</a>
-				<a href="">希腊</a>
-				<a href="">俄罗斯</a>
-			</div>
-			<div class="point-title">
-				<span>出境跟团游</span>
-			</div>
-			<div class="point-list">
-				<a href="">乐活精品半自由行</a>
-				<a href="">巴厘岛</a>
-				<a href="">普吉岛</a>
-				<a href="">泰国</a>
-				<a href="">Club Med</a>
-				<a href="">日本</a>
-				<a href="">台湾</a>
-				<a href="">韩国</a>
-				<a href="">新加坡</a>
-				<a href="">清迈</a>
-				<a href="">西班牙</a>
-				<a href="">希腊</a>
-				<a href="">俄罗斯</a>
-			</div>
+			<!--邮轮菜单模块-->
+			<ul id="ship-list">
+				<li class="ship-unit">
+					<a href="#">
+					歌诗达邮轮
+					<span>体验海上意大利风情</span>
+					</a>
+				</li>
+				<li class="ship-unit" style="background-position: 20px -48px;">
+					<a href="#">
+					皇家加勒比邮轮
+					<span>感受来自未来的邮轮</span>
+					</a>
+				</li>
+				<li class="ship-unit" style="background-position: 20px -116px;">
+					<a href="#">
+					公主邮轮
+					<span>畅享公主礼遇</span>
+					</a>
+				</li>
+				<li class="ship-unit" style="background-position: 20px -183px;">
+					<a href="#">
+					地中海邮轮
+					<span>尽享海上风情</span>
+					</a>
+				</li>
+			</ul>
+			<!--/邮轮菜单模块-->
 			<div class="section-ad-left-panel">
 				<a href=""><img src="/static/2016/ad_youlun_left.png" alt=""></a>
 			</div>
@@ -981,12 +1002,66 @@
 <!--/邮轮-->
 
 <!--下部长条广告-->
+<style>
+	#ad-bottom-ad {
+		width:1176px;
+		height:98px;
+		box-sizing: border-box;
+		margin:20px auto 0 auto;
+		background-color: #eee;
+	}
+	#ad-bottom-ad img {
+		width:1163px;
+		height:90px;
+		padding:4px 0;
+		margin:0 auto;
+	}
+</style>
+<div id="ad-bottom-ad">
+	<a href="#" target="_blank">
+		<img src="/static/2016/test-bottom-ad.png" alt="">
+	</a>
+</div>
 <!--/下部长条广告-->
 
 <!--达人点评-->
 <!--/达人点评-->
 
 <!--下部4幅广告组-->
+<style>
+	#ad-bottom-4ad {
+		width: 1176px;
+		height: 107px;
+		box-sizing: border-box;
+		padding: 4px 8px;
+		background-color: #EEE;
+		margin: 20px auto 0 auto;
+	}
+
+	#ad-bottom-4ad > a {
+		float: left;
+		width: 275px;
+		height: 99px;
+		margin-left: 20px;
+
+	}
+
+	#ad-bottom-4ad > a:first-child {
+		margin-left: 0;
+	}
+
+	#ad-bottom-4ad > a > img {
+		width: 275px;
+		height: 99px;
+	}
+</style>
+<div id="ad-bottom-4ad">
+	<a href="#" target="_blank"><img src="http://www.htyou.com/pic/photo/4dbed2e657457884e67137d3514119b3-2.jpg" alt=""></a>
+	<a href="#" target="_blank"><img src="http://www.htyou.com/pic/photo/4dbed2e657457884e67137d3514119b3-3.jpg" alt=""></a>
+	<a href="#" target="_blank"><img src="http://www.htyou.com/pic/photo/4dbed2e657457884e67137d3514119b3-1.jpg" alt=""></a>
+	<a href="#" target="_blank"><img src="http://www.htyou.com/pic/photo/4dbed2e657457884e67137d3514119b3-4.jpg" alt=""></a>
+	<div class="clear"></div>
+</div>
 <!--/下部4幅广告组-->
 
 <!--右侧功能条-->
