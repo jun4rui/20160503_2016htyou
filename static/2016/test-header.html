@@ -186,6 +186,22 @@
 				});
 			});
 		</script>
+		<script>
+			//顶部图片显示隐藏控制函数
+			var popupCloseTimer	= null;
+			function panelpopupHide(){
+				popupCloseTimer = setTimeout(function(){
+					$('.panel-popup').hide();
+				},500);
+			}
+			function panelpopupShow(inDomID){
+				$(inDomID).show();
+				if (popupCloseTimer!=null){
+					clearTimeout(popupCloseTimer);
+				}
+			}
+		</script>
+
 		<div id="weixin-panel-popup" class="panel-popup" onmouseover="panelpopupShow('weixin-panel-popup')" onmouseout="panelpopupHide();" style="background: url(&quot;/pic/news/2015-05-20_10-54-37_0901.png&quot;);">
 			<!--<div class="popup-title" onclick="$('#weixin-panel-popup').hide();">-->
 			<div class="popup-title">
@@ -288,28 +304,28 @@
 </style>
 <div id="nav-panel">
 	<div class="nav-section">
-		<a href="">
+		<a href="http://www.htyou.com/">
 			<div class="nav-unit" style="width:108px;"></div>
 		</a>
-		<a href="">
+		<a href="http://www.htyou.com/tourteam/isnative/2.htm">
+			<div class="nav-unit" style="width:125px;"></div>
+		</a>
+		<a href="http://www.htyou.com/tourteam/isnative/4.htm">
+			<div class="nav-unit" style="width:125px;"></div>
+		</a>
+		<a href="http://www.htyou.com/tourteam/isnative/1.htm">
+			<div class="nav-unit" style="width:125px;"></div>
+		</a>
+		<a href="http://www.htyou.com/tour/visa_gotoSecond.action">
 			<div class="nav-unit" style="width:125px;"></div>
 		</a>
 		<a href="">
 			<div class="nav-unit" style="width:125px;"></div>
 		</a>
-		<a href="">
-			<div class="nav-unit" style="width:125px;"></div>
-		</a>
-		<a href="">
-			<div class="nav-unit" style="width:125px;"></div>
-		</a>
-		<a href="">
-			<div class="nav-unit" style="width:125px;"></div>
-		</a>
-		<a href="">
+		<a href="http://www.htyou.com/common/websinfo_gotoMeetingThree.action?queryId=323">
 			<div class="nav-unit" style="width:135px;"></div>
 		</a>
-		<a href="">
+		<a href="http://www.htyou.com/ticket.htm">
 			<div class="nav-unit" style="width:125px;"></div>
 		</a>
 	</div>
