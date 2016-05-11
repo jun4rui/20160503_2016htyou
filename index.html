@@ -10,12 +10,225 @@
 
 	<script src="/static/jslib/jquery/jquery-1.12.3.min.js" charset="utf-8"></script>
 	<script src="/static/jslib/avalon1.5/avalon.js" charset="utf-8"></script>
-	<!--[if lte IE 8]><script type="text/javascript" src="/static/2016/excanvas.js"></script><![endif]-->
+	<!--[if lte IE 8]>
+	<script type="text/javascript" src="/static/2016/excanvas.js"></script><![endif]-->
 
 	<script src="/static/2016/common.js" charset="GBK"></script>
 	<link rel="stylesheet" href="/static/2016/common.css">
 
+	<script>
+		//Avalon模型
+		avalon.ready(function () {
+			//全局数据VM(包括边角图片、各处广告等)
+			var bodyVM = avalon.define({
+				$id: 'body',
+				bottom4AD:[],
+				bottom1AD:{}
+			});
+			//顶部大图轮播VM
+			var galleryVM = avalon.define({
+				$id:  'gallery',
+				list: [],
+				galleryRendered: function(){
+					if ($('.controller-unit').length>0){
+						$('.controller-unit').eq(0).click();
+					}
+				}
+			});
+			//特价旅游VM
+			var discountVM = avalon.define({
+				$id:  'discount',
+				list: []
+			});
+			//出境旅游VM
+			var chujingyouVM = avalon.define({
+				$id:  'chujingyou',
+				tabList:[],
+				list: [],
+				leftAD:{},
+				rightAD:{},
+				point:[],
+				chujingyouTabRendered: function(){
+					$('#chujingyou .tab-unit').eq(0).click();
+				}
+			});
+			//国内旅游VM
+			var guoneiyouVM = avalon.define({
+				$id:  'guoneiyou',
+				tabList:[],
+				list: [],
+				leftAD:{},
+				rightAD:{},
+				point:[],
+				guoneiyouTabRendered: function(){
+					$('#guoneiyou .tab-unit').eq(0).click();
+				}
+			});
+			//周边旅游VM
+			var zhoubianyouVM = avalon.define({
+				$id:  'zhoubianyou',
+				tabList:[],
+				list: [],
+				leftAD:{},
+				rightAD:{},
+				point:[],
+				zhoubianyouTabRendered: function(){
+					$('#zhoubianyou .tab-unit').eq(0).click();
+				}
+			});
+			//邮轮VM
+			var youlunVM = avalon.define({
+				$id:  'youlun',
+				tabList:[],
+				list: [],
+				leftAD:{},
+				rightAD:{}
+			});
 
+			/*功能区域*/
+			avalon.scan();
+
+			/*Ajax数据初始化载入区域*/
+			//顶部大图轮播
+			$.getJSON('/common/adpic_queryAdPic.action?adPicType=220094&datatype=json', function (result) {
+				galleryVM.list = result.slice(0, 6); // 只取前6个
+			});
+			//特价旅游
+			$.getJSON('/common/adpic_queryAdPic.action?adPicType=220095&datatype=json', function (result) {
+				discountVM.list = result.slice(0, 3); // 只取前3个
+			});
+			//出境游
+			$.getJSON('/common/websinfo_queryHTClass.action?datatype=json&classId=646', function (result) {
+				chujingyouVM.tabList = (result[0].notes).split(' ').slice(0, 8);
+			});
+			//国内游
+			$.getJSON('/common/websinfo_queryHTClass.action?datatype=json&classId=647', function (result) {
+				guoneiyouVM.tabList = (result[0].notes).split(' ').slice(0, 8);
+			});
+			//周边游
+			$.getJSON('/common/websinfo_queryHTClass.action?datatype=json&classId=648', function (result) {
+				zhoubianyouVM.tabList = (result[0].notes).split(' ').slice(0, 8);
+			});
+
+			//出境游景点
+			$.getJSON('/common/websinfo_queryHTClass.action?datatype=json&classId=643', function (result) {
+				chujingyouVM.point = (result[0].notes).split(' ');
+			});
+			//国内游景点
+			$.getJSON('/common/websinfo_queryHTClass.action?datatype=json&classId=644', function (result) {
+				guoneiyouVM.point = (result[0].notes).split(' ');
+			});
+			//周边游景点
+			$.getJSON('/common/websinfo_queryHTClass.action?datatype=json&classId=645', function (result) {
+				zhoubianyouVM.point = (result[0].notes).split(' ');
+			});
+
+			//出境游左侧广告
+			$.getJSON('/common/adpic_queryAdPic.action?adPicType=220097&datatype=json', function (result) {
+				chujingyouVM.leftAD = result[0]; // 只取1个
+			});
+			//出境游右侧广告
+			$.getJSON('/common/adpic_queryAdPic.action?adPicType=220100&datatype=json', function (result) {
+				chujingyouVM.rightAD = result[0]; // 只取1个
+			});
+			//国内游左侧广告
+			$.getJSON('/common/adpic_queryAdPic.action?adPicType=220098&datatype=json', function (result) {
+				guoneiyouVM.leftAD = result[0]; // 只取1个
+			});
+			//国内游右侧广告
+			$.getJSON('/common/adpic_queryAdPic.action?adPicType=220101&datatype=json', function (result) {
+				guoneiyouVM.rightAD = result[0]; // 只取1个
+			});
+			//周边游左侧广告
+			$.getJSON('/common/adpic_queryAdPic.action?adPicType=220099&datatype=json', function (result) {
+				zhoubianyouVM.leftAD = result[0]; // 只取1个
+			});
+			//周边游右侧广告
+			$.getJSON('/common/adpic_queryAdPic.action?adPicType=220102&datatype=json', function (result) {
+				zhoubianyouVM.rightAD = result[0]; // 只取1个
+			});
+
+			//底部1广告
+			$.getJSON('/common/adpic_queryAdPic.action?adPicType=220021&datatype=json', function (result) {
+				bodyVM.bottom1AD = result[0]; // 只取1个
+			});
+			//底部4广告
+			$.getJSON('/common/adpic_queryAdPic.action?adPicType=220096&datatype=json', function (result) {
+				bodyVM.bottom4AD = result.slice(0, 4); // 只取前4个
+			});
+
+
+			/*函数区域*/
+			//绘制景点数据的函数
+			function renderData(inSection/*大模块的ID*/, inName/*景点名称*/) {
+				inName = inName.replace(/^\s/g, '').replace(/\s$/g, '');	//解决IE低版本会多出空格来的问题
+				//inName=='精选'的处理流程
+				if (inName == '精选') {
+					var jsonAPI = '';
+					if (inSection == 'chujingyou') {  //出境游
+						jsonAPI = '/mobile/ipad_queryTourLine.action?isnative=4&pagesize=12&datatype=json&commendtype=7';
+					}
+					if (inSection == 'guoneiyou') {  //国内游
+						jsonAPI = '/mobile/ipad_queryTourLine.action?isnative=2&pagesize=12&datatype=json&commendtype=6';
+					}
+					if (inSection == 'zhoubianyou') {  //周边游
+						jsonAPI = '/mobile/ipad_queryTourLine.action?area=%E6%B9%96%E5%8D%97_%E7%9C%81%E5%86%85&pagesize=12&datatype=json&commendtype=5';
+					}
+					$.getJSON(jsonAPI, function (result) {
+						//console.log(result);
+						if (inSection == 'chujingyou') {   //出境游的处理
+							chujingyouVM.list  = [];
+							chujingyouVM.list   = (result.value).slice(0, 4);
+						}
+						if (inSection == 'guoneiyou') {
+							guoneiyouVM.list =  [];
+							guoneiyouVM.list   = (result.value).slice(0, 4);
+						}
+						if (inSection == 'zhoubianyou') {
+							zhoubianyouVM.list = [];
+							zhoubianyouVM.list   = (result.value).slice(0, 4);
+						}
+					});
+				} else {
+					//不是精选的出来流程
+					//转码
+					var jsonAPI = '/mobile/ipad_queryTourLine.action?KeyWords=' + encodeURI(inName);
+					$.getJSON(jsonAPI, function (result) {
+						//console.log(result);
+						if (inSection == 'chujingyou') {   //出境游的处理
+							chujingyouVM.list = [];
+							chujingyouVM.list   = (result.value).slice(0, 4);
+						}
+						if (inSection == 'guoneiyou') {
+							guoneiyouVM.list = [];
+							guoneiyouVM.list   = (result.value).slice(0, 4);
+						}
+						if (inSection == 'zhoubianyou') {
+							zhoubianyouVM.list = [];
+							zhoubianyouVM.list   = (result.value).slice(0, 4);
+						}
+					});
+				}
+
+			}
+
+			//处理点击Tab事件
+			$('.section').delegate('.tab-unit', 'click', function(){
+				var sectionId = $(this).parent().parent().parent().attr('id');
+				//清理掉本section的tab-unit.active
+				$('#'+sectionId).find('.tab-unit.active').removeClass('active');
+				//添加当前点击tab-unit为active
+				$(this).addClass('active');
+				//载入相应数据
+				renderData(sectionId, $(this).text());
+				//载入数据
+				console.log(''
+						+sectionId
+						+$(this).text()
+				);
+			});
+		});
+	</script>
 </head>
 <body>
 <!--临时头部-->
@@ -26,179 +239,223 @@
 <style>
 	#gallery-section {
 		width: 100%;
+		height:448px;
 		margin: 0 auto;
+		overflow:hidden;
+		position:relative;
 	}
-	#gallery-section>.content-section {
-		width:1204px;
-		height: 448px;
-		margin:0 auto;
-		position: relative;
-	}
-</style>
-<div id="gallery-section" style="background:url(/static/2016/test-gallery1.png) no-repeat top center;">
-	<!--内容容器区域-->
-	<div class="content-section">
-		<!--画廊控制块区域-->
-		<style>
-			.gallery-controller {
-				position: absolute;
-				z-index: 2;
-				right:2px;
-				bottom:14px;
-			}
 
-			.controller-unit {
-				width: 128px;
-				height: 47px;
-				margin-left: 1px;
-				padding: 14px 0;
-				float: left;
-				color: #FFF;
-				font-size: 14px;
-				line-height: 150%;
-				text-align: center;
-				background-color: rgba(0, 0, 0, 0.6);
-				cursor: pointer;
-			}
-			.controller-arrow {
-				width: 20px;
-				height: 10px;
-				background: url('data:image/png;base64,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');
-				position: absolute;
-				left: 570px;
-				top: -10px;
-			}
-			.controller-unit.active {
-				background:#FF7C08;
-			}
-		</style>
-		<div class="gallery-controller">
-			<div class="controller-unit">上海迪士尼<br>限量发售</div>
-			<div class="controller-unit">王牌强势归来<br>淡季最酷玩法</div>
-			<div class="controller-unit">1元办美签<br>美国爆款6999</div>
-			<div class="controller-unit">周末&小长假<br>满2000减100</div>
-			<div class="controller-unit active">聚"惠"欧洲<br>最高立减1000元</div>
-			<div class="controller-unit">遨游研学<br>移动的小课堂</div>
-			<div class="controller-arrow"></div>
-			<div class="clear"></div>
-		</div>
-		<script>
-			$('.gallery-controller').delegate('.controller-unit', 'click', function(){
-				//消除当前active
-				$('.gallery-controller .controller-unit.active').removeClass('active');
-				//为点击对象加入active
-				$(this).addClass('active');
-				$('.gallery-controller .controller-arrow').css({left:129*$(this).index()+54});
-				//更换背景图片
-				console.log('[Click] controller-unit.'+$(this).index());
-			});
-		</script>
-		<!--/画廊控制块区域-->
-		<!--功能导航区域-->
-		<!--/功能导航区域-->
+	#gallery-section a#gallery-link {
+		margin:0 auto;
+		border:0;
+		position:absolute;
+		left:0;
+		top:0;
+		z-index:9;
+		width:100%;
+	}
+	#gallery-section a#gallery-link .gallery-pic {
+		margin:0 auto;
+		width:100%;
+		background-position:top center;
+		height:448px;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	/*#gallery-section > .content-section {*/
+		/*width: 1204px;*/
+		/*height: 448px;*/
+		/*margin: 0 auto;*/
+		/*position: relative;*/
+		/*z-index: 99;*/
+	/*}*/
+</style>
+
+	<div id="gallery-section">
+		<a href="#" id="gallery-link" target="_blank">
+			<div class="gallery-pic"></div>
+		</a>
+		<!--内容容器区域-->
+		<!--<div class="content-section">-->
+			<!--画廊控制块区域-->
+			<style>
+				.gallery-controller {
+					position: absolute;
+					z-index: 99;
+					right: 2px;
+					bottom: 14px;
+				}
+
+				.controller-unit {
+					width: 128px;
+					height: 47px;
+					margin-left: 1px;
+					padding: 14px 0;
+					float: left;
+					color: #FFF;
+					font-size: 14px;
+					line-height: 150%;
+					text-align: center;
+					background-color: rgba(0, 0, 0, 0.6);
+					cursor: pointer;
+					overflow: hidden;
+				}
+
+				.controller-arrow {
+					width: 20px;
+					height: 10px;
+					background: url('data:image/png;base64,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');
+					position: absolute;
+					left: 54px;
+					top: -10px;
+					z-index:99;
+				}
+
+				.controller-unit.active {
+					background: #FF7C08;
+				}
+				.controller-unit span {
+					height: 47px;
+					display: block;
+					overflow: hidden;
+				}
+			</style>
+			<div class="gallery-controller" ms-controller="gallery">
+				<div class="controller-unit" ms-repeat-unit="list" ms-attr-picuri="{{unit.picuri}}" ms-attr-link="{{unit.alink}}" data-repeat-rendered="galleryRendered">
+					<span>{{unit.text}}</span>
+				</div>
+				<div class="controller-arrow"></div>
+				<div class="clear"></div>
+			</div>
+			<script>
+				$('.gallery-controller').delegate('.controller-unit', 'click', function () {
+					//消除当前active
+					$('.gallery-controller .controller-unit.active').removeClass('active');
+					//为点击对象加入active
+					$(this).addClass('active');
+					$('.gallery-controller .controller-arrow').css({left: 129 * $(this).index() + 54});
+					//更换背景图片
+					$('#gallery-link').attr('href','http://www.htyou.com/'+$(this).attr('link'));
+					$('#gallery-link .gallery-pic').css({'background-image':'url(http://www.htyou.com/'+$(this).attr('picuri')+')'});
+				});
+			</script>
+			<!--/画廊控制块区域-->
+			<!--功能导航区域-->
+			<!--/功能导航区域-->
+		<!--</div>-->
+		<!--/内容容器区域-->
 	</div>
-	<!--/内容容器区域-->
-</div>
 <!--/上部大型画廊/功能导航区域-->
 
 
 <!--特价旅游-->
 <style>
 	#tejia {
-		width:1176px;
-		height:367px;
-		margin:0 auto;
-		margin-top:24px;
-		position:relative;
+		width: 1176px;
+		height: 367px;
+		margin: 0 auto;
+		margin-top: 24px;
+		position: relative;
 	}
-	#tejia>.title {
+
+	#tejia > .title {
 		display: block;
-		height:50px;
+		height: 50px;
 		background: url(/static/2016/title_tejia.png) no-repeat top left;
 	}
+
 	#tejia .tejia-panel {
-		display:block;
+		display: block;
 	}
 </style>
 
 <style>
 	.tejia-unit {
-		margin-top:1px;
-		width:292px;
-		height:313px;
-		float:left;
-		border:1px solid #e5e5e5;
-		border-left:0;
+		margin-top: 1px;
+		width: 292px;
+		height: 313px;
+		float: left;
+		border: 1px solid #E5E5E5;
+		border-left: 0;
 		background-color: #FFF;
-		position:relative;
+		position: relative;
 	}
-	.tejia-panel>.tejia-unit:first-child {
-		border-left:1px solid #e5e5e5 !important;
+
+	.tejia-panel > .tejia-unit:first-child {
+		border-left: 1px solid #E5E5E5 !important;
 	}
+
 	.tejia-unit:hover {
-		border-top:2px solid #ff7c08;
-		margin-top:0;
+		border-top: 2px solid #FF7C08;
+		margin-top: 0;
 		box-shadow: -1px 0px 3px #9E9E9E;
 	}
+
 	.tejia-unit .image {
-		margin:13px 13px;
+		margin: 13px 13px;
 		width: 266px;
-		height:203px;
+		height: 203px;
 		background-size: cover;
 		background-position: center center;
-		position:relative;
+		position: relative;
 	}
+
 	.tejia-unit .discount {
-		width:90px;
-		height:24px;
-		font:14px/24px '宋体','新宋体', simsun;
-		font-weight:bold;
-		color:#FFF;
+		width: 90px;
+		height: 24px;
+		font: 14px/24px '宋体', '新宋体', simsun;
+		font-weight: bold;
+		color: #FFF;
 		background-image: url(/static/2016/bg_discount.png);
 		position: absolute;
-		left:0;
-		top:0;
+		left: 0;
+		top: 0;
 		z-index: 9;
 		text-indent: 5px;
 	}
-	.tejia-unit>.image>.title {
-		width:100%;
+
+	.tejia-unit > .image > .title {
+		width: 100%;
 		box-sizing: border-box;
-		height:32px;
-		font:12px/32px '宋体','新宋体', simsun;
-		color:#FFF;
-		background: rgba(0,0,0,.5);
-		padding:0 5px;
-		overflow:hidden;
+		height: 32px;
+		font: 12px/32px '宋体', '新宋体', simsun;
+		color: #FFF;
+		background: rgba(0, 0, 0, .5);
+		padding: 0 5px;
+		overflow: hidden;
 		position: absolute;
-		bottom:0;
-		left:0;
+		bottom: 0;
+		left: 0;
 		z-index: 9;
 	}
 
 	.tejia-unit .btn-buy {
-		width:88px;
-		height:88px;
+		width: 88px;
+		height: 88px;
 		position: absolute;
 		right: 6px;
-		bottom:0;
+		bottom: 0;
 		cursor: pointer;
 		background-image: url(/static/2016/btn_buynow.png);
 	}
+
 	.tejia-unit .price {
-		font:25px/100% '微软雅黑','Microsoft YaHei UI';
-		color:#FF7C08;
-		margin:0 13px;
+		font: 25px/100% '微软雅黑', 'Microsoft YaHei UI';
+		color: #FF7C08;
+		margin: 0 13px;
 		margin-top: 20px;
 	}
+
 	.tejia-unit .price span {
 		font-size: 35px;
 		margin: 0 8px;
 	}
+
 	.tejia-unit .old-price {
-		font:18px/100% Arial;
-		color:#959595;
-		margin:10px 13px 0 13px;
+		font: 18px/100% Arial;
+		color: #959595;
+		margin: 10px 13px 0 13px;
 		text-decoration: line-through;
 	}
 </style>
@@ -208,38 +465,16 @@
 	<div class="title"></div>
 	<!--/标题-->
 	<!--特价信息面板-->
-	<div class="tejia-panel">
+	<div class="tejia-panel" ms-controller="discount">
 		<!--特价信息单元-->
-		<div class="tejia-unit">
-			<div class="image" style="background-image:url(http://www.htyou.com/pic/adpic/2016-04-29_16-54-46_2323.jpg)">
-				<div class="discount">立省&yen;350</div>
-				<div class="title">（湘阴）左宗棠文化园、纪念馆、东湖风筝节亲子一日游（05月）</div>
+		<div class="tejia-unit" ms-repeat-unit="list">
+			<div class="image" ms-attr-style="background-image:url(http://www.htyou.com/{{unit.picuri}})">
+				<div class="discount">立省&yen;{{parseInt(unit.excol1*1.25)-unit.excol1}}</div>
+				<div class="title">{{unit.text}}</div>
 			</div>
-			<div class="price">&yen;<span>99</span>起</div>
-			<div class="old-price">&yen;123</div>
-			<div class="btn-buy"></div>
-		</div>
-		<!--/特价信息单元-->
-		<!--特价信息单元-->
-		<div class="tejia-unit">
-			<div class="image" style="background-image:url(http://www.htyou.com/pic/adpic/2016-04-29_17-01-29_0453.jpg)">
-				<div class="discount">立省&yen;3333</div>
-				<div class="title">（北京）惠游京津---北京天津单卧单飞纯玩六日</div>
-			</div>
-			<div class="price">&yen;<span>1299</span>起</div>
-			<div class="old-price">&yen;2487</div>
-			<div class="btn-buy"></div>
-		</div>
-		<!--/特价信息单元-->
-		<!--特价信息单元-->
-		<div class="tejia-unit">
-			<div class="image" style="background-image: url(http://www.htyou.com/pic/adpic/2016-04-20_16-17-34_2772.jpg)">
-				<div class="discount">立省&yen;33340</div>
-				<div class="title">（贵州）故事镇远单卧单高三日游</div>
-			</div>
-			<div class="price">&yen;<span>33399</span>起</div>
-			<div class="old-price">&yen;1237</div>
-			<div class="btn-buy"></div>
+			<div class="price">&yen;<span>{{unit.excol1}}</span>起</div>
+			<div class="old-price">&yen;{{parseInt(unit.excol1*1.25)}}</div>
+			<a ms-attr-href="http://www.htyou.com/{{unit.alink}}" target="_blank"><div class="btn-buy"></div></a>
 		</div>
 		<!--/特价信息单元-->
 		<div class="clear"></div>
@@ -248,53 +483,60 @@
 	<!--用户登陆/信息等-->
 	<style>
 		.user-info {
-			width:280px;
-			height:365px;
-			border:1px solid #e5e5e5;
-			position:absolute;
-			right:0;
-			top:0;
+			width: 280px;
+			height: 365px;
+			border: 1px solid #E5E5E5;
+			position: absolute;
+			right: 0;
+			top: 0;
 			text-align: center;
 		}
-		.user-info>.image-face {
-			width:89px;
-			height:89px;
-			border-radius:50%;
-			border:3px solid #FFF;
-			box-shadow: 0 0 3px rgba(0,0,0,.5);
-			overflow:hidden;
-			margin:23px auto 0 auto;
+
+		.user-info > .image-face {
+			width: 89px;
+			height: 89px;
+			border-radius: 50%;
+			border: 3px solid #FFF;
+			box-shadow: 0 0 3px rgba(0, 0, 0, .5);
+			overflow: hidden;
+			margin: 23px auto 0 auto;
 		}
-		.user-info>.image-face>img {
+
+		.user-info > .image-face > img {
 			height: 100%;
 			margin: 0 auto;
 		}
-		.user-info>.welcome-str {
-			font:14px/36px '微软雅黑', 'Microsoft YaHei';
-			color:#535353;
-			margin:0 auto;
+
+		.user-info > .welcome-str {
+			font: 14px/36px '微软雅黑', 'Microsoft YaHei';
+			color: #535353;
+			margin: 0 auto;
 			text-align: center;
 		}
+
 		#canvas-panel {
-			border-top: 1px solid #e5e5e5;
+			border-top: 1px solid #E5E5E5;
 			padding-top: 20px;
 		}
+
 		.user-function {
-			background:url(/static/2016/btn_user.png);
-			width:278px;
-			height:50px;
-			margin:0 auto;
-			position:relative;
+			background: url(/static/2016/btn_user.png);
+			width: 278px;
+			height: 50px;
+			margin: 0 auto;
+			position: relative;
 			margin-bottom: 6px;
 		}
-		.user-function>a>.btn-login {
+
+		.user-function > a > .btn-login {
 			position: absolute;
 			width: 120px;
 			height: 36px;
 			left: 10px;
 			top: 7px;
 		}
-		.user-function>a>.btn-reg {
+
+		.user-function > a > .btn-reg {
 			position: absolute;
 			width: 120px;
 			height: 36px;
@@ -310,47 +552,47 @@
 			Hi！欢迎来到华天旅游网
 		</div>
 		<div class="user-function">
-			<a href="#">
+			<a href="/login.htm" target="_blank">
 				<div class="btn-login"></div>
 			</a>
-			<a href="">
+			<a href="/register.htm" target="_blank">
 				<div class="btn-reg"></div>
 			</a>
 		</div>
 		<canvas id="canvas-panel" width="270" height="120"></canvas>
 		<script>
-			$(document).ready(function(){
+			$(document).ready(function () {
 				var canvas = document.getElementById('canvas-panel');
-				var ctx = canvas.getContext('2d');
+				var ctx    = canvas.getContext('2d');
 				ctx.beginPath();
-				ctx.arc(60, 60, 52, Math.PI*1.5, Math.PI*1.4);
+				ctx.arc(60, 60, 52, Math.PI * 1.5, Math.PI * 1.4);
 				//ctx.arc(200, 200, 115, 0, Math.PI*1.5);
-				var gradient=ctx.createLinearGradient(0,0,110,0);
-				gradient.addColorStop("0","#ff8b07");
+				var gradient = ctx.createLinearGradient(0, 0, 110, 0);
+				gradient.addColorStop("0", "#ff8b07");
 				//gradient.addColorStop("0.1","#ff8b07");
-				gradient.addColorStop("1.0","#fff000");
-				ctx.shadowColor = '#555555';
+				gradient.addColorStop("1.0", "#fff000");
+				ctx.shadowColor   = '#555555';
 				ctx.shadowOffsetX = 0;
 				ctx.shadowOffsetY = 0;
-				ctx.shadowBlur = 2;
-				ctx.strokeStyle=gradient;
-				ctx.lineWidth=7;
+				ctx.shadowBlur    = 2;
+				ctx.strokeStyle   = gradient;
+				ctx.lineWidth     = 7;
 				ctx.stroke();
 				ctx.shadowBlur = 0;
 				//写字
-				ctx.fillStyle = '#535353';
-				ctx.font = '16px 微软雅黑';
-				ctx.fillText('最新满意度', 20	, 50);
+				ctx.fillStyle  = '#535353';
+				ctx.font       = '16px 微软雅黑';
+				ctx.fillText('最新满意度', 20, 50);
 				ctx.fillStyle = '#ff7c08';
-				ctx.font = '35px Arial';
-				ctx.fillText('98%',26,86);
+				ctx.font      = '35px Arial';
+				ctx.fillText('98%', 26, 86);
 				ctx.fillStyle = '#62c3d0';
-				ctx.font = '20px 微软雅黑';
-				ctx.fillText('湖南电子商务',127, 40);
-				ctx.fillText('诚信示范企业',127, 65);
+				ctx.font      = '20px 微软雅黑';
+				ctx.fillText('湖南电子商务', 127, 40);
+				ctx.fillText('诚信示范企业', 127, 65);
 				ctx.fillStyle = '#535353';
-				ctx.font = '12px 宋体';
-				ctx.fillText('全国旅游系统先进集体',127, 90);
+				ctx.font      = '12px 宋体';
+				ctx.fillText('全国旅游系统先进集体', 127, 90);
 			});
 		</script>
 	</div>
@@ -364,29 +606,34 @@
 		width: 1176px;
 		margin: 36px auto 0 auto;
 	}
-	.section>.title {
-		height:47px;
-		display:block;
-		border-bottom:3px solid #dcdcdc;
-		position:relative;
+
+	.section > .title {
+		height: 47px;
+		display: block;
+		border-bottom: 3px solid #DCDCDC;
+		position: relative;
 	}
-	.section>.title>.tab-panel {
+
+	.section > .title > .tab-panel {
 		width: 890px;
-		height:50px;
-		margin-bottom:-3px;
-		margin-left:210px;
-	}
-	.section>.title>.tab-panel>.tab-unit,
-	.section>.title>.tab-panel>.tab-title {
-		width: 76px;
 		height: 50px;
-		font: 16px/50px '宋体',songti, '新宋体', simsun;
+		margin-bottom: -3px;
+		margin-left: 210px;
+	}
+
+	.section > .title > .tab-panel > .tab-unit,
+	.section > .title > .tab-panel > .tab-title {
+		/*width: 76px;*/
+		padding:0 0.75em;
+		height: 50px;
+		font: 16px/50px '宋体', songti, '新宋体', simsun;
 		color: #595959;
 		text-align: center;
 		float: left;
 		cursor: pointer;
 	}
-	.section>.title>a.morelink {
+
+	.section > .title > a.morelink {
 		width: 70px;
 		height: 40px;
 		text-align: center;
@@ -394,47 +641,51 @@
 		position: absolute;
 		right: 0;
 		bottom: 0;
-		color: #8c8c8c;
+		color: #8C8C8C;
 		font: 12px/47px 'simsun', '新宋体', '宋体';
 	}
 
-	.section>.content {
-		width:1176px;
-		height:486px;
-		position:relative;
-	}
-	.section>.content>.section-ad-panel {
-		width:288px;
-		height:468px;
-		overflow:hidden;
-		position:absolute;
-		top:20px;
-		right:0;
-	}
-	.section>.content>.pointlist-panel {
-		width:282px;
-		height:486px;
-		position:relative;
-		left:0;
-		top:0;
-		background-color: #f3f3f3;
-	}
-	.section>.content>.pointlist-panel>.section-ad-left-panel {
-		width:282px;
-		height:218px;
-		position:absolute;
-		overflow:hidden;
-		left:0;
-		bottom:0;
-	}
-	.section>.content>.pointlist-panel>.point-title {
-		padding:14px 0 0 14px;
+	.section > .content {
+		width: 1176px;
+		height: 486px;
+		position: relative;
 	}
 
-	.section>.content>.pointlist-panel>.point-title>span {
+	.section > .content > .section-ad-panel {
+		width: 288px;
+		height: 468px;
+		overflow: hidden;
+		position: absolute;
+		top: 20px;
+		right: 0;
+	}
+
+	.section > .content > .pointlist-panel {
+		width: 282px;
+		height: 486px;
+		position: relative;
+		left: 0;
+		top: 0;
+		background-color: #F3F3F3;
+	}
+
+	.section > .content > .pointlist-panel > .section-ad-left-panel {
+		width: 282px;
+		height: 218px;
+		position: absolute;
+		overflow: hidden;
+		left: 0;
+		bottom: 0;
+	}
+
+	.section > .content > .pointlist-panel > .point-title {
+		padding: 14px 0 0 14px;
+	}
+
+	.section > .content > .pointlist-panel > .point-title > span {
 		width: 110px;
 		height: 28px;
-		font:12px/28px '宋体', simsun ,'新宋体';
+		font: 12px/28px '宋体', simsun, '新宋体';
 		border: 1px solid #555;
 		text-align: center;
 		line-height: 28px;
@@ -443,175 +694,129 @@
 		border-radius: 14px 14px;
 		display: inline-block;
 	}
-	.section>.content>.pointlist-panel>.point-list {
-		padding:8px 14px;
-	}
-	.section>.content>.pointlist-panel>.point-list>a {
-		font:12px/22px '宋体', simsun, '新宋体';
-		color: #7d7d7d;
-		margin-right:1em;
+
+	.section > .content > .pointlist-panel > .point-list {
+		padding: 8px 14px;
 	}
 
-	.section>.content>.tourlist-panel {
-		position:absolute;
-		left:302px;
-		top:0;
+	.section > .content > .pointlist-panel > .point-list > a {
+		font: 12px/22px '宋体', simsun, '新宋体';
+		color: #7D7D7D;
+		margin-right: 1em;
 	}
+
+	.section > .content > .tourlist-panel {
+		position: absolute;
+		left: 302px;
+		top: 0;
+	}
+
 	.tour-unit {
-		width:272px;
-		height:223px;
-		margin:20px 20px 0 0;
-		position:relative;
-		float:left;
+		width: 272px;
+		height: 223px;
+		margin: 20px 20px 0 0;
+		position: relative;
+		float: left;
 	}
-	.tour-unit>img {
-		width:272px;
-		height:169px;
-		display:block;
+
+	.tour-unit img {
+		width: 272px;
+		height: 169px;
+		display: block;
 	}
-	.tour-unit>.text {
+
+	.tour-unit .text {
 		width: 178px;
-		height: 45px;
+		height: 36px;
 		overflow: hidden;
 		position: absolute;
-		bottom: 0;
+		bottom: 9px;
 		left: 0;
-		color: #7d7d7d;
+		color: #7D7D7D;
 		font: 12px/18px '宋体', simsun, '新宋体';
 	}
-	.tour-unit>.price {
-		width:104px;
-		height:54px;
+
+	.tour-unit .price {
+		width: 104px;
+		height: 54px;
 		overflow: hidden;
 		position: absolute;
-		right:0;
-		bottom:0;
-		font-family:'微软雅黑', 'Microsoft YaHei UI';
+		right: 0;
+		bottom: 0;
+		font-family: '微软雅黑', 'Microsoft YaHei UI';
 		font-size: 16px;
 		line-height: 54px;
 		text-align: right;
 		color: #FF7C08;
 	}
-	.tour-unit>.price>span {
-		font-size:25px;
+
+	.tour-unit .price > span {
+		font-size: 25px;
 	}
 </style>
 <!--/section公公样式-->
 <!--出境旅游-->
 <style>
-	#chujingyou>.title {
+	#chujingyou > .title {
 		background: url(/static/2016/title_chujingyou.png) top left no-repeat;
 	}
-	#chujingyou>.title>.tab-panel>.tab-unit.active,
-	#chujingyou>.title>.tab-panel>.tab-unit:hover,
-	#chujingyou>.title>.tab-panel>.tab-title {
-		color: #5f52a0;
+
+	#chujingyou > .title > .tab-panel > .tab-unit.active,
+	#chujingyou > .title > .tab-panel > .tab-unit:hover,
+	#chujingyou > .title > .tab-panel > .tab-title,
+	#chujingyou > .content > .pointlist-panel > .point-list > a:hover {
+		color: #5F52A0;
 	}
-	#chujingyou>.title>.tab-panel>.tab-unit.active {
+
+	#chujingyou > .title > .tab-panel > .tab-unit.active {
 		background: url(/static/2016/point_chujingyou.png) bottom center no-repeat;
 	}
-	#chujingyou>.content>.pointlist-panel>.point-title>span {
+
+	#chujingyou > .content > .pointlist-panel > .point-title > span {
 		color: #5F52A0;
-		border:1px solid #5F52A0;
+		border: 1px solid #5F52A0;
 	}
 
 </style>
-<div id="chujingyou" class="section">
+<div id="chujingyou" class="section" ms-controller="chujingyou">
 	<div class="title">
 		<ul class="tab-panel">
 			<li class="tab-title">热门主题:</li>
-			<li class="tab-unit active">精选</li>
-			<li class="tab-unit">日本</li>
-			<li class="tab-unit">欧洲</li>
-			<li class="tab-unit">泰国</li>
-			<li class="tab-unit">长滩岛</li>
-			<li class="tab-unit">泰国</li>
-			<li class="tab-unit">韩国</li>
-			<li class="tab-unit">澳大利亚</li>
+			<li class="tab-unit" ms-repeat-unit="tabList" data-repeat-rendered="chujingyouTabRendered">{{unit}}</li>
 			<div class="clear"></div>
 		</ul>
-		<a href="" class="morelink">更多产品&gt;&gt;</a>
+		<a href="http://www.htyou.com/tourteam/isnative/4.htm" class="morelink">更多产品&gt;&gt;</a>
 	</div>
 	<div class="content">
 		<!--左侧列表,广告区域-->
 		<div class="pointlist-panel">
 			<div class="point-title">
-				<span>出境自由行</span>
+				<span>出境游热门景点</span>
 			</div>
 			<div class="point-list">
-				<a href="">乐活精品半自由行</a>
-				<a href="">巴厘岛</a>
-				<a href="">普吉岛</a>
-				<a href="">泰国</a>
-				<a href="">Club Med</a>
-				<a href="">日本</a>
-				<a href="">台湾</a>
-				<a href="">韩国</a>
-				<a href="">新加坡</a>
-				<a href="">清迈</a>
-				<a href="">西班牙</a>
-				<a href="">希腊</a>
-				<a href="">俄罗斯</a>
-			</div>
-			<div class="point-title">
-				<span>出境跟团游</span>
-			</div>
-			<div class="point-list">
-				<a href="">乐活精品半自由行</a>
-				<a href="">巴厘岛</a>
-				<a href="">普吉岛</a>
-				<a href="">泰国</a>
-				<a href="">Club Med</a>
-				<a href="">日本</a>
-				<a href="">台湾</a>
-				<a href="">韩国</a>
-				<a href="">新加坡</a>
-				<a href="">清迈</a>
-				<a href="">西班牙</a>
-				<a href="">希腊</a>
-				<a href="">俄罗斯</a>
+				<a ms-attr-href="http://www.htyou.com/tour/type/month/keyword{{encodeURI(unit)}}.htm" ms-repeat-unit="point">{{unit}}</a>
 			</div>
 			<div class="section-ad-left-panel">
-				<a href=""><img src="/static/2016/ad_chujingyou_left.png" alt=""></a>
+				<a ms-attr-href="http://www.htyou.com/{{leftAD.alink}}"><img ms-attr-src="http://www.htyou.com/{{leftAD.picuri}}" ms-attr-alt="{{leftAD.text}}"></a>
 			</div>
 		</div>
 		<!--/左侧列表,广告区域-->
 		<!--中间线路展示区域-->
 		<div class="tourlist-panel">
 			<!--线路展示模块-->
-			<div class="tour-unit">
-				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-7.jpg" alt="">
-				<div class="text">（海岛）长滩6天5晚浪漫游</div>
-				<div class="price">&yen;<span>999</span>起</div>
+			<div class="tour-unit" ms-repeat-unit="list">
+				<a ms-attr-href="http://www.htyou.com/tour/tourbrowse/{{unit.lineid}}.htm" target="_blank">
+					<img ms-attr-src="http://www.htyou.com/{{unit.spotviewpic}}" ms-attr-alt="{{unit.tourproname}}">
+					<div class="text">{{unit.tourproname}}</div>
+					<div class="price">&yen;<span>{{unit.leastprice}}</span>起</div>
+				</a>
 			</div>
 			<!--/线路展示模块-->
-			<!--线路展示模块-->
-			<div class="tour-unit">
-				<img src="http://www.htyou.com/pic/photo/ce8a7b5b29673d33257febd03fb904ad-1.jpg" alt="">
-				<div class="text">（新马波德申）自在旅游新马波德申六日乐享游</div>
-				<div class="price">&yen;<span>9999</span>起</div>
-			</div>
-			<!--/线路展示模块-->
-			<!--线路展示模块-->
-			<div class="tour-unit">
-				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-9.jpg" alt="">
-				<div class="text">（海岛）长滩6天5晚尊享游</div>
-				<div class="price">&yen;<span>99999</span>起</div>
-			</div>
-			<!--/线路展示模块-->
-			<!--线路展示模块-->
-			<div class="tour-unit">
-				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-10.jpg" alt="">
-				<div class="text">（台湾）6月华航直航环岛八日（台北进出）（印象篇）</div>
-				<div class="price">&yen;<span>99999</span>起</div>
-			</div>
-			<!--/线路展示模块-->
-
 		</div>
 		<!--/中间线路展示区域-->
 		<!--右侧广告区域-->
 		<div class="section-ad-panel">
-			<a href=""><img src="/static/2016/ad_chujingyou_right.png" alt=""></a>
+			<a ms-attr-href="http://www.htyou.com/{{rightAD.alink}}"><img ms-attr-src="http://www.htyou.com/{{rightAD.picuri}}" ms-attr-alt="{{rightAD.text}}"></a>
 		</div>
 		<!--/右侧广告区域-->
 	</div>
@@ -620,119 +825,66 @@
 
 <!--国内旅游-->
 <style>
-	#guoneiyou>.title {
+	#guoneiyou > .title {
 		background: url(/static/2016/title_guoneiyou.png) top left no-repeat;
 	}
-	#guoneiyou>.title>.tab-panel>.tab-unit.active,
-	#guoneiyou>.title>.tab-panel>.tab-unit:hover,
-	#guoneiyou>.title>.tab-panel>.tab-title {
-		color: #ff387d;
+
+	#guoneiyou > .title > .tab-panel > .tab-unit.active,
+	#guoneiyou > .title > .tab-panel > .tab-unit:hover,
+	#guoneiyou > .title > .tab-panel > .tab-title,
+	#guoneiyou > .content > .pointlist-panel > .point-list > a:hover  {
+		color: #FF387D;
 	}
-	#guoneiyou>.title>.tab-panel>.tab-unit.active {
+
+	#guoneiyou > .title > .tab-panel > .tab-unit.active {
 		background: url(/static/2016/point_guoneiyou.png) bottom center no-repeat;
 	}
-	#guoneiyou>.content>.pointlist-panel>.point-title>span {
-		color: #ff387d;
-		border:1px solid #ff387d;
+
+	#guoneiyou > .content > .pointlist-panel > .point-title > span {
+		color: #FF387D;
+		border: 1px solid #FF387D;
 	}
 
 </style>
-<div id="guoneiyou" class="section">
+<div id="guoneiyou" class="section" ms-controller="guoneiyou">
 	<div class="title">
 		<ul class="tab-panel">
 			<li class="tab-title">热门主题:</li>
-			<li class="tab-unit active">精选</li>
-			<li class="tab-unit">日本</li>
-			<li class="tab-unit">欧洲</li>
-			<li class="tab-unit">泰国</li>
-			<li class="tab-unit">长滩岛</li>
-			<li class="tab-unit">泰国</li>
-			<li class="tab-unit">韩国</li>
-			<li class="tab-unit">澳大利亚</li>
+			<li class="tab-unit" ms-repeat-unit="tabList" data-repeat-rendered="guoneiyouTabRendered">{{unit}}</li>
 			<div class="clear"></div>
 		</ul>
-		<a href="" class="morelink">更多产品&gt;&gt;</a>
+		<a href="http://www.htyou.com/tourteam/isnative/2.htm" class="morelink">更多产品&gt;&gt;</a>
 	</div>
 	<div class="content">
 		<!--左侧列表,广告区域-->
 		<div class="pointlist-panel">
 			<div class="point-title">
-				<span>出境自由行</span>
+				<span>国内游热门景点</span>
 			</div>
 			<div class="point-list">
-				<a href="">乐活精品半自由行</a>
-				<a href="">巴厘岛</a>
-				<a href="">普吉岛</a>
-				<a href="">泰国</a>
-				<a href="">Club Med</a>
-				<a href="">日本</a>
-				<a href="">台湾</a>
-				<a href="">韩国</a>
-				<a href="">新加坡</a>
-				<a href="">清迈</a>
-				<a href="">西班牙</a>
-				<a href="">希腊</a>
-				<a href="">俄罗斯</a>
-			</div>
-			<div class="point-title">
-				<span>出境跟团游</span>
-			</div>
-			<div class="point-list">
-				<a href="">乐活精品半自由行</a>
-				<a href="">巴厘岛</a>
-				<a href="">普吉岛</a>
-				<a href="">泰国</a>
-				<a href="">Club Med</a>
-				<a href="">日本</a>
-				<a href="">台湾</a>
-				<a href="">韩国</a>
-				<a href="">新加坡</a>
-				<a href="">清迈</a>
-				<a href="">西班牙</a>
-				<a href="">希腊</a>
-				<a href="">俄罗斯</a>
+				<a ms-attr-href="http://www.htyou.com/tour/type/month/keyword{{encodeURI(unit)}}.htm" ms-repeat-unit="point">{{unit}}</a>
 			</div>
 			<div class="section-ad-left-panel">
-				<a href=""><img src="/static/2016/ad_guoneiyou_left.png" alt=""></a>
+				<a ms-attr-href="http://www.htyou.com/{{leftAD.alink}}"><img ms-attr-src="http://www.htyou.com/{{leftAD.picuri}}" ms-attr-alt="{{leftAD.text}}"></a>
 			</div>
 		</div>
 		<!--/左侧列表,广告区域-->
 		<!--中间线路展示区域-->
 		<div class="tourlist-panel">
 			<!--线路展示模块-->
-			<div class="tour-unit">
-				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-7.jpg" alt="">
-				<div class="text">（海岛）长滩6天5晚浪漫游</div>
-				<div class="price">&yen;<span>999</span>起</div>
+			<div class="tour-unit" ms-repeat-unit="list">
+				<a ms-attr-href="http://www.htyou.com/tour/tourbrowse/{{unit.lineid}}.htm" target="_blank">
+					<img ms-attr-src="http://www.htyou.com/{{unit.spotviewpic}}" ms-attr-alt="{{unit.tourproname}}">
+					<div class="text">{{unit.tourproname}}</div>
+					<div class="price">&yen;<span>{{unit.leastprice}}</span>起</div>
+				</a>
 			</div>
 			<!--/线路展示模块-->
-			<!--线路展示模块-->
-			<div class="tour-unit">
-				<img src="http://www.htyou.com/pic/photo/ce8a7b5b29673d33257febd03fb904ad-1.jpg" alt="">
-				<div class="text">（新马波德申）自在旅游新马波德申六日乐享游</div>
-				<div class="price">&yen;<span>9999</span>起</div>
-			</div>
-			<!--/线路展示模块-->
-			<!--线路展示模块-->
-			<div class="tour-unit">
-				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-9.jpg" alt="">
-				<div class="text">（海岛）长滩6天5晚尊享游</div>
-				<div class="price">&yen;<span>99999</span>起</div>
-			</div>
-			<!--/线路展示模块-->
-			<!--线路展示模块-->
-			<div class="tour-unit">
-				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-10.jpg" alt="">
-				<div class="text">（台湾）6月华航直航环岛八日（台北进出）（印象篇）</div>
-				<div class="price">&yen;<span>99999</span>起</div>
-			</div>
-			<!--/线路展示模块-->
-
 		</div>
 		<!--/中间线路展示区域-->
 		<!--右侧广告区域-->
 		<div class="section-ad-panel">
-			<a href=""><img src="/static/2016/ad_guoneiyou_right.png" alt=""></a>
+			<a ms-attr-href="http://www.htyou.com/{{rightAD.alink}}"><img ms-attr-src="http://www.htyou.com/{{rightAD.picuri}}" ms-attr-alt="{{rightAD.text}}"></a>
 		</div>
 		<!--/右侧广告区域-->
 	</div>
@@ -741,119 +893,65 @@
 
 <!--周边旅游-->
 <style>
-	#zhoubianyou>.title {
+	#zhoubianyou > .title {
 		background: url(/static/2016/title_zhoubianyou.png) top left no-repeat;
 	}
-	#zhoubianyou>.title>.tab-panel>.tab-unit.active,
-	#zhoubianyou>.title>.tab-panel>.tab-unit:hover,
-	#zhoubianyou>.title>.tab-panel>.tab-title {
-		color: #68c677;
-	}
-	#zhoubianyou>.title>.tab-panel>.tab-unit.active {
-		background: url(/static/2016/point_zhoubianyou.png) bottom center no-repeat;
-	}
-	#zhoubianyou>.content>.pointlist-panel>.point-title>span {
-		color: #68c677;
-		border:1px solid #68c677;
+
+	#zhoubianyou > .title > .tab-panel > .tab-unit.active,
+	#zhoubianyou > .title > .tab-panel > .tab-unit:hover,
+	#zhoubianyou > .title > .tab-panel > .tab-title,
+	#zhoubianyou > .content > .pointlist-panel > .point-list > a:hover {
+		color: #68C677;
 	}
 
+	#zhoubianyou > .title > .tab-panel > .tab-unit.active {
+		background: url(/static/2016/point_zhoubianyou.png) bottom center no-repeat;
+	}
+
+	#zhoubianyou > .content > .pointlist-panel > .point-title > span {
+		color: #68C677;
+		border: 1px solid #68C677;
+	}
 </style>
-<div id="zhoubianyou" class="section">
+<div id="zhoubianyou" class="section" ms-controller="zhoubianyou">
 	<div class="title">
 		<ul class="tab-panel">
 			<li class="tab-title">热门主题:</li>
-			<li class="tab-unit active">精选</li>
-			<li class="tab-unit">日本</li>
-			<li class="tab-unit">欧洲</li>
-			<li class="tab-unit">泰国</li>
-			<li class="tab-unit">长滩岛</li>
-			<li class="tab-unit">泰国</li>
-			<li class="tab-unit">韩国</li>
-			<li class="tab-unit">澳大利亚</li>
+			<li class="tab-unit" ms-repeat-unit="tabList" data-repeat-rendered="zhoubianyouTabRendered">{{unit}}</li>
 			<div class="clear"></div>
 		</ul>
-		<a href="" class="morelink">更多产品&gt;&gt;</a>
+		<a href="http://www.htyou.com/tourteam/isnative/1.htm" class="morelink">更多产品&gt;&gt;</a>
 	</div>
 	<div class="content">
 		<!--左侧列表,广告区域-->
 		<div class="pointlist-panel">
 			<div class="point-title">
-				<span>出境自由行</span>
+				<span>周边游热门景点</span>
 			</div>
 			<div class="point-list">
-				<a href="">乐活精品半自由行</a>
-				<a href="">巴厘岛</a>
-				<a href="">普吉岛</a>
-				<a href="">泰国</a>
-				<a href="">Club Med</a>
-				<a href="">日本</a>
-				<a href="">台湾</a>
-				<a href="">韩国</a>
-				<a href="">新加坡</a>
-				<a href="">清迈</a>
-				<a href="">西班牙</a>
-				<a href="">希腊</a>
-				<a href="">俄罗斯</a>
-			</div>
-			<div class="point-title">
-				<span>出境跟团游</span>
-			</div>
-			<div class="point-list">
-				<a href="">乐活精品半自由行</a>
-				<a href="">巴厘岛</a>
-				<a href="">普吉岛</a>
-				<a href="">泰国</a>
-				<a href="">Club Med</a>
-				<a href="">日本</a>
-				<a href="">台湾</a>
-				<a href="">韩国</a>
-				<a href="">新加坡</a>
-				<a href="">清迈</a>
-				<a href="">西班牙</a>
-				<a href="">希腊</a>
-				<a href="">俄罗斯</a>
+				<a ms-attr-href="http://www.htyou.com/tour/type/month/keyword{{encodeURI(unit)}}.htm" ms-repeat-unit="point">{{unit}}</a>
 			</div>
 			<div class="section-ad-left-panel">
-				<a href=""><img src="/static/2016/ad_zhoubianyou_left.png" alt=""></a>
+				<a ms-attr-href="http://www.htyou.com/{{leftAD.alink}}"><img ms-attr-src="http://www.htyou.com/{{leftAD.picuri}}" ms-attr-alt="{{leftAD.text}}"></a>
 			</div>
 		</div>
 		<!--/左侧列表,广告区域-->
 		<!--中间线路展示区域-->
 		<div class="tourlist-panel">
 			<!--线路展示模块-->
-			<div class="tour-unit">
-				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-7.jpg" alt="">
-				<div class="text">（海岛）长滩6天5晚浪漫游</div>
-				<div class="price">&yen;<span>999</span>起</div>
+			<div class="tour-unit" ms-repeat-unit="list">
+				<a ms-attr-href="http://www.htyou.com/tour/tourbrowse/{{unit.lineid}}.htm" target="_blank">
+					<img ms-attr-src="http://www.htyou.com/{{unit.spotviewpic}}" ms-attr-alt="{{unit.tourproname}}">
+					<div class="text">{{unit.tourproname}}</div>
+					<div class="price">&yen;<span>{{unit.leastprice}}</span>起</div>
+				</a>
 			</div>
 			<!--/线路展示模块-->
-			<!--线路展示模块-->
-			<div class="tour-unit">
-				<img src="http://www.htyou.com/pic/photo/ce8a7b5b29673d33257febd03fb904ad-1.jpg" alt="">
-				<div class="text">（新马波德申）自在旅游新马波德申六日乐享游</div>
-				<div class="price">&yen;<span>9999</span>起</div>
-			</div>
-			<!--/线路展示模块-->
-			<!--线路展示模块-->
-			<div class="tour-unit">
-				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-9.jpg" alt="">
-				<div class="text">（海岛）长滩6天5晚尊享游</div>
-				<div class="price">&yen;<span>99999</span>起</div>
-			</div>
-			<!--/线路展示模块-->
-			<!--线路展示模块-->
-			<div class="tour-unit">
-				<img src="http://www.htyou.com/pic/photo/f8bc07eaad6deea3e20edba76d0d2d7e-10.jpg" alt="">
-				<div class="text">（台湾）6月华航直航环岛八日（台北进出）（印象篇）</div>
-				<div class="price">&yen;<span>99999</span>起</div>
-			</div>
-			<!--/线路展示模块-->
-
 		</div>
 		<!--/中间线路展示区域-->
 		<!--右侧广告区域-->
 		<div class="section-ad-panel">
-			<a href=""><img src="/static/2016/ad_zhoubianyou_right.png" alt=""></a>
+			<a ms-attr-href="http://www.htyou.com/{{rightAD.alink}}"><img ms-attr-src="http://www.htyou.com/{{rightAD.picuri}}" ms-attr-alt="{{rightAD.text}}"></a>
 		</div>
 		<!--/右侧广告区域-->
 	</div>
@@ -862,49 +960,57 @@
 
 <!--邮轮-->
 <style>
-	#youlun>.title {
+	#youlun > .title {
 		background: url(/static/2016/title_youlun.png) top left no-repeat;
 	}
-	#youlun>.title>.tab-panel>.tab-unit.active,
-	#youlun>.title>.tab-panel>.tab-unit:hover,
-	#youlun>.title>.tab-panel>.tab-title {
-		color: #2e7ad7;
+
+	#youlun > .title > .tab-panel > .tab-unit.active,
+	#youlun > .title > .tab-panel > .tab-unit:hover,
+	#youlun > .title > .tab-panel > .tab-title {
+		color: #2E7AD7;
 	}
-	#youlun>.title>.tab-panel>.tab-unit.active {
+
+	#youlun > .title > .tab-panel > .tab-unit.active {
 		background: url(/static/2016/point_youlun.png) bottom center no-repeat;
 	}
-	#youlun>.content>.pointlist-panel>.point-title>span {
-		color: #2e7ad7;
-		border:1px solid #2e7ad7;
+
+	#youlun > .content > .pointlist-panel > .point-title > span {
+		color: #2E7AD7;
+		border: 1px solid #2E7AD7;
 	}
+
 	/*邮轮模块独有的四行邮轮菜单*/
 	#youlun #ship-list {
-		padding:0;
-		margin:0;
+		padding: 0;
+		margin: 0;
 	}
-	#youlun #ship-list>.ship-unit {
+
+	#youlun #ship-list > .ship-unit {
 		background: url(/static/2016/logo_youlun.png) no-repeat 20px 18px;
-		width:282px;
-		height:67px;
-		border:1px solid #e5e5e5;
-		border-top:0;
-		font:20px/22px '微软雅黑','Microsoft YaHei';
-		color:#2E7AD7;
+		width: 282px;
+		height: 67px;
+		border: 1px solid #E5E5E5;
+		border-top: 0;
+		font: 20px/22px '微软雅黑', 'Microsoft YaHei';
+		color: #2E7AD7;
 		box-sizing: border-box;
 		padding-top: 12px;
 		padding-left: 98px;
 		cursor: pointer;
 	}
+
 	#youlun #ship-list a {
-		color:#2E7AD7;
+		color: #2E7AD7;
 	}
+
 	#youlun #ship-list .ship-unit span {
-		font:12px/22px '宋体', simsun;
-		color:#959595;
-		display:block;
+		font: 12px/22px '宋体', simsun;
+		color: #959595;
+		display: block;
 	}
+
 	#youlun #ship-list .ship-unit:hover {
-		background-color:#FFF;
+		background-color: #FFF;
 	}
 </style>
 <div id="youlun" class="section">
@@ -930,26 +1036,26 @@
 			<ul id="ship-list">
 				<li class="ship-unit">
 					<a href="#">
-					歌诗达邮轮
-					<span>体验海上意大利风情</span>
+						歌诗达邮轮
+						<span>体验海上意大利风情</span>
 					</a>
 				</li>
 				<li class="ship-unit" style="background-position: 20px -48px;">
 					<a href="#">
-					皇家加勒比邮轮
-					<span>感受来自未来的邮轮</span>
+						皇家加勒比邮轮
+						<span>感受来自未来的邮轮</span>
 					</a>
 				</li>
 				<li class="ship-unit" style="background-position: 20px -116px;">
 					<a href="#">
-					公主邮轮
-					<span>畅享公主礼遇</span>
+						公主邮轮
+						<span>畅享公主礼遇</span>
 					</a>
 				</li>
 				<li class="ship-unit" style="background-position: 20px -183px;">
 					<a href="#">
-					地中海邮轮
-					<span>尽享海上风情</span>
+						地中海邮轮
+						<span>尽享海上风情</span>
 					</a>
 				</li>
 			</ul>
@@ -1004,22 +1110,23 @@
 <!--下部长条广告-->
 <style>
 	#ad-bottom-ad {
-		width:1176px;
-		height:98px;
+		width: 1176px;
+		height: 98px;
 		box-sizing: border-box;
-		margin:20px auto 0 auto;
-		background-color: #eee;
+		margin: 20px auto 0 auto;
+		background-color: #EEE;
 	}
+
 	#ad-bottom-ad img {
-		width:1163px;
-		height:90px;
-		padding:4px 0;
-		margin:0 auto;
+		width: 1163px;
+		height: 90px;
+		padding: 4px 0;
+		margin: 0 auto;
 	}
 </style>
-<div id="ad-bottom-ad">
-	<a href="#" target="_blank">
-		<img src="/static/2016/test-bottom-ad.png" alt="">
+<div id="ad-bottom-ad" ms-controller="body">
+	<a ms-attr-href="http://www.htyou.com/{{bottom1AD.alink}}" target="_blank">
+		<img ms-attr-src="http://www.htyou.com/{{bottom1AD.picuri}}" ms-attr-alt="{{bottom1AD.text}}">
 	</a>
 </div>
 <!--/下部长条广告-->
@@ -1055,11 +1162,8 @@
 		height: 99px;
 	}
 </style>
-<div id="ad-bottom-4ad">
-	<a href="#" target="_blank"><img src="http://www.htyou.com/pic/photo/4dbed2e657457884e67137d3514119b3-2.jpg" alt=""></a>
-	<a href="#" target="_blank"><img src="http://www.htyou.com/pic/photo/4dbed2e657457884e67137d3514119b3-3.jpg" alt=""></a>
-	<a href="#" target="_blank"><img src="http://www.htyou.com/pic/photo/4dbed2e657457884e67137d3514119b3-1.jpg" alt=""></a>
-	<a href="#" target="_blank"><img src="http://www.htyou.com/pic/photo/4dbed2e657457884e67137d3514119b3-4.jpg" alt=""></a>
+<div id="ad-bottom-4ad" ms-controller="body">
+	<a ms-attr-href="http://www.htyou.com/{{unit.alink}}" target="_blank" ms-repeat-unit="bottom4AD"><img ms-attr-src="http://www.htyou.com/{{unit.picuri}}" ms-attr-alt="{{unit.text}}"></a>
 	<div class="clear"></div>
 </div>
 <!--/下部4幅广告组-->
@@ -1071,9 +1175,20 @@
 <div id="footer-body"></div>
 <!--/临时底部-->
 <script>
+	function repos(){
+		$('.gallery-controller').css({'right':($(window).width()-1200)/2});
+	}
 	$(document).ready(function () {
 		$('#header-body').load('/static/2016/test-header.html');
 		$('#footer-body').load('/static/2016/test-footer.html');
+
+		//重定位浮动元素
+		repos();
+		//点击画廊第一个元素
+		$('.gallery-controller .controller-unit').eq(0).click();
+	});
+	$(window).resize(function(){
+		repos();
 	});
 </script>
 </body>
