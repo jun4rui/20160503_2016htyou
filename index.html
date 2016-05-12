@@ -271,7 +271,7 @@
 	/*}*/
 
 	#func-panel {
-		width: 407px;
+		width: 407px;/*-128*/
 		height: 403px;
 		position: absolute;
 		top: 30px;
@@ -281,6 +281,8 @@
 		border-top-right-radius: 15px;
 		border-bottom-right-radius: 15px;
 		opacity: 0.9;
+
+		overflow:hidden;
 	}
 	#func-panel .func-menu,
 	#func-panel .func-menu-unit {
@@ -308,6 +310,33 @@
 		text-indent:42px;
 		opacity:1;
 	}
+	#func-panel .func-menu-data {
+		width: 263px;
+		height:387px;
+		position: absolute;
+		left:129px;
+		top:0;
+		padding:8px;
+
+		color:#434343;
+	}
+
+	#func-panel .func-menu-data .title {
+		font:16px/22px '微软雅黑', 'Microsoft YaHei';
+		color: #ff7c08;
+	}
+	#func-panel .func-menu-data .text-center {
+		text-align: center;
+	}
+	#func-panel .func-menu-data .block {
+		display:block;
+	}
+	#func-panel .func-menu-data a {
+		color:#434343;
+	}
+	#func-panel .func-menu-data a.hot {
+		color:#ff7c08;
+	}
 </style>
 
 <div id="gallery-section">
@@ -324,6 +353,58 @@
 			<li class="func-menu-unit">WIFI租赁</li>
 			<li class="func-menu-unit">微信服务</li>
 		</ul>
+		<!--旅游度假内容-->
+		<div class="func-menu-data">
+			<div class="text-center title block" style="margin-top:1em;">
+				高质量，98%满意度，享贴心服务
+			</div>
+			<form action="/tour/tourpro_listAndFilterProWithQuery.action" style="text-align: center;" target="_blank" method="post">
+				<table style="width:100%; font-family: '宋体',simsun; margin-top:10px;">
+					<tr>
+						<td style="line-height: 34px; font-size: 12px; width:50px;padding-bottom:5px;">&nbsp;出发地</td>
+						<td>
+							<input type="text" value="长沙" readonly style="width:190px; height:34px; line-height:34px; border:1px solid #d2d2d2;">
+						</td>
+					</tr>
+					<tr>
+						<td style="line-height: 34px; font-size: 12px; width:50px;padding-bottom:5px;">&nbsp;目的地</td>
+						<td>
+							<input type="text" name="KeyWords" id="KeyWords" placeholder="目的地、产品编号和关键字" style="width:190px; height:34px; line-height:34px; border:1px solid #d2d2d2;">
+						</td>
+					</tr>
+				</table>
+				<input type="submit" value="" style="margin-top:20px; background:url(/static/2016/btn_search.png); width:107px; height:40px; border:0; cursor: pointer;">
+			</form>
+			<hr style="border:0; border-bottom:1px solid #facd89; margin-top:10px;">
+			<table style="font:12px/22px '宋体',simsun; margin-top:10px;">
+				<tr>
+					<td nowrap valign="top" style="color:#7d7d7d;">特色主题：</td>
+					<td>
+						<a href="" class="hot">上海迪士尼</a>
+						<a href="" class="hot">当地玩乐</a>
+						<a href="">毕业旅行</a>
+						<a href="" class="hot">暑假</a>
+						<a href="">遨游微度假</a>
+					</td>
+				</tr>
+				<tr>
+					<td nowrap valign="top" style="color:#7d7d7d;">踏青赏花：</td>
+					<td>
+						<a href="">东京</a>
+						<a href="">扬州</a>
+					</td>
+				</tr>
+				<tr>
+					<td nowrap valign="top" style="color:#7d7d7d;">错峰出行：</td>
+					<td>
+						<a href="" class="hot">日本</a>
+						<a href="">台湾</a>
+						<a href="" class="hot">巴厘岛</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!--/旅游度假内容-->
 	</div>
 	<script>
 		$('#func-panel .func-menu-unit').click(function(){
