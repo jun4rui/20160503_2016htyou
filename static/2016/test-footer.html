@@ -242,6 +242,7 @@
 			top:106px;
 			background:url(/static/2016/tools_weixin_on.png) no-repeat top left;
 			opacity:0;
+			filter:alpha(opacity=0);
 			position:absolute;
 			z-index:99999;
 		}
@@ -282,6 +283,9 @@
 		</a>
 	</div>
 	<script>
+		//修复IE678的BUG
+		$('#online-tools div.weixin-slide').ready(function(){$('#online-tools div.weixin-slide').css({'opacity':'0'})});
+		//工具栏行为处理
 		$('#online-tools div.weixin').mouseover(function(){
 			$('#online-tools div.weixin-slide').animate({'right':'70px','opacity':'1'});
 		}).mouseout(function(){

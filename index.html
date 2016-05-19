@@ -10,8 +10,13 @@
 
 	<script src="/static/jslib/jquery/jquery-1.12.3.min.js" charset="utf-8"></script>
 	<script src="/static/jslib/avalon1.5/avalon.js" charset="utf-8"></script>
+
 	<!--[if lte IE 8]>
-	<script type="text/javascript" src="/static/2016/excanvas.js"></script><![endif]-->
+	<script type="text/javascript" src="/static/ie7/IE9.js"></script>
+	<script type="text/javascript" src="/static/2016/excanvas.js"></script>
+	<script type="text/javascript" src="/static/jslib/PIE.js"></script>
+	<![endif]-->
+
 
 	<script src="/static/2016/common.js" charset="GBK"></script>
 	<link rel="stylesheet" href="/static/2016/common.css">
@@ -84,6 +89,39 @@
 				leftAD:  {},
 				rightAD: {}
 			});
+			//常见目的地
+			var popareaVM	= avalon.define({
+				$id:	'poparea',
+				list:[],
+				content:[],
+				areaClick:function(){
+					console.log($(this).text());
+					for (var i=0; i<popareaVM.list.length; i++){
+						if (popareaVM.list[i].info_name==$(this).text()){
+							console.log(popareaVM.list[i].arealist);
+							$('#poparea .tabs-name.active').removeClass('active');
+							$(this).addClass('active');
+							popareaVM.content = popareaVM.list[i].arealist;
+						}
+					}
+				},
+				pointClick:function () {
+					console.log($(this).text());
+					$('#KeyWords1').val($(this).text());
+				},
+				popareaRendered: function(){
+					$('#poparea .tabs-name').eq(0).click();
+					$('#KeyWords1')
+							.blur(function(){
+								setTimeout(function(){
+									$('#poparea').hide();
+								},300);
+							})
+							.focus(function(){
+								$('#poparea').show();
+							});
+				}
+			});
 
 			/*功能区域*/
 			avalon.scan();
@@ -155,6 +193,14 @@
 			//底部4广告
 			$.getJSON('/common/adpic_queryAdPic.action?adPicType=220096&datatype=json', function (result) {
 				bodyVM.bottom4AD = result.slice(0, 4); // 只取前4个
+			});
+
+			//常见目的地
+			$.getJSON('/common/websinfo_queryWebsInfos.action?submit=ajax&infoClass=692', function(result){
+				popareaVM.list = result;
+				for (var i=0; i<popareaVM.list.length; i++){
+					popareaVM.list[i].arealist = popareaVM.list[i].description.split(',');
+				}
 			});
 
 
@@ -282,7 +328,7 @@
 		border-bottom-right-radius: 15px;
 		opacity: 0.9;
 
-		overflow:hidden;
+		/*overflow:hidden;*/
 	}
 	#func-panel .func-menu,
 	#func-panel .func-menu-unit {
@@ -363,13 +409,66 @@
 					<tr>
 						<td style="line-height: 34px; font-size: 12px; width:50px;padding-bottom:5px;">&nbsp;出发地</td>
 						<td>
-							<input type="text" value="长沙" readonly style="width:190px; height:34px; line-height:34px; border:1px solid #d2d2d2;">
+							<select name="" id="" style="width:190px; height:28px; line-height:28px; border:1px solid #d2d2d2;">
+								<option value="长沙">长沙</option>
+							</select>
 						</td>
 					</tr>
 					<tr>
 						<td style="line-height: 34px; font-size: 12px; width:50px;padding-bottom:5px;">&nbsp;目的地</td>
-						<td>
-							<input type="text" name="KeyWords" id="KeyWords" placeholder="目的地、产品编号和关键字" style="width:190px; height:34px; line-height:34px; border:1px solid #d2d2d2;">
+						<td style="position:relative;">
+							<input type="text" name="KeyWords" id="KeyWords1" placeholder="目的地、产品编号和关键字" style="width:190px; height:24px; line-height:24px; border:1px solid #d2d2d2;">
+							<!--常用旅游目的地-->
+							<style>
+								#poparea {
+									/* border: 1px solid #555; */
+									position: absolute;
+									top: 40px;
+									left: 0;
+									width: 250px;
+									z-index: 999999999999;
+									/* background-color: #dfdfdf; */
+									display:none;
+
+								}
+								#poparea .tabs-name {
+									float: left;
+									line-height: 200%;
+									padding: 0 .5em;
+									color: #555555;
+									background-color: #EFEFEF;
+									margin-right: 1px;
+								}
+								#poparea .tabs-name.active,
+								#poparea .tabs-content span:hover {
+									background-color: #FF7C08;
+									color: #FFF;
+								}
+								#poparea .tabs-content {
+									height: auto;
+									background-color: #dfdfdf;
+									margin-top: 1px;
+									border: 1px solid #B9B9B9;
+									padding: 4px;
+									text-align: left;
+								}
+								#poparea .tabs-content span {
+									color: #434343;
+									margin-right: 1em;
+									line-height: 200%;
+									cursor:pointer;
+								}
+							</style>
+							<div id="poparea" class="tabs" ms-controller="poparea">
+								<ul style="list-style: none; margin: 0; padding: 0; cursor: pointer;">
+									<li ms-repeat-unit="list" ms-mouseover="areaClick()" class="tabs-name" data-repeat-rendered="popareaRendered">{{unit.info_name}}</li>
+									<div class="clear"></div>
+								</ul>
+								<div class="tabs-content">
+									<span ms-repeat-unit="content" ms-click="pointClick()">{{unit}}</span>
+								</div>
+							</div>
+							<!--/常用旅游目的地-->
 						</td>
 					</tr>
 				</table>
@@ -434,6 +533,8 @@
 			line-height: 150%;
 			text-align: center;
 			background-color: rgba(0, 0, 0, 0.6);
+			background-color: #000\9;
+			filter:alpha(opacity=80)\9;
 			cursor: pointer;
 			overflow: hidden;
 		}
@@ -699,41 +800,6 @@
 			</a>
 		</div>
 		<canvas id="canvas-panel" width="270" height="120"></canvas>
-		<script>
-			$(document).ready(function () {
-				var canvas = document.getElementById('canvas-panel');
-				var ctx    = canvas.getContext('2d');
-				ctx.beginPath();
-				ctx.arc(60, 60, 52, Math.PI * 1.5, Math.PI * 1.4);
-				//ctx.arc(200, 200, 115, 0, Math.PI*1.5);
-				var gradient = ctx.createLinearGradient(0, 0, 110, 0);
-				gradient.addColorStop("0", "#ff8b07");
-				//gradient.addColorStop("0.1","#ff8b07");
-				gradient.addColorStop("1.0", "#fff000");
-				ctx.shadowColor   = '#555555';
-				ctx.shadowOffsetX = 0;
-				ctx.shadowOffsetY = 0;
-				ctx.shadowBlur    = 2;
-				ctx.strokeStyle   = gradient;
-				ctx.lineWidth     = 7;
-				ctx.stroke();
-				ctx.shadowBlur = 0;
-				//写字
-				ctx.fillStyle  = '#535353';
-				ctx.font       = '16px 微软雅黑';
-				ctx.fillText('最新满意度', 20, 50);
-				ctx.fillStyle = '#ff7c08';
-				ctx.font      = '35px Arial';
-				ctx.fillText('98%', 26, 86);
-				ctx.fillStyle = '#62c3d0';
-				ctx.font      = '20px 微软雅黑';
-				ctx.fillText('湖南电子商务', 127, 40);
-				ctx.fillText('诚信示范企业', 127, 65);
-				ctx.fillStyle = '#535353';
-				ctx.font      = '12px 宋体';
-				ctx.fillText('全国旅游系统先进集体', 127, 90);
-			});
-		</script>
 	</div>
 	<!--/用户登录/信息等-->
 </div>
@@ -1327,6 +1393,66 @@
 		repos();
 		//点击画廊第一个元素
 		$('.gallery-controller .controller-unit').eq(0).click();
+
+		//兼容IE678的圆角
+		if (window.PIE) {
+			$('#func-panel').each(function() {
+				PIE.attach(this);
+			});
+		}
+
+		//载入5秒后再次执行repos()
+		setTimeout(function(){
+			repos();
+		}
+		,50000);
+	});
+
+	//绘制canvas
+	$('#canvas-panel').ready(function(){
+		//Canvas绘制
+		var canvas = document.getElementById('canvas-panel');
+		if (typeof window.G_vmlCanvasManager!="undefined") {
+			canvas=window.G_vmlCanvasManager.initElement(canvas);
+			var ctx=canvas.getContext("2d");
+		}else
+			var ctx=canvas.getContext("2d");
+		ctx.beginPath();
+		ctx.arc(60, 60, 52, Math.PI * 1.5, Math.PI * 1.4);
+		//ctx.arc(200, 200, 115, 0, Math.PI*1.5);
+		var gradient = ctx.createLinearGradient(0, 0, 110, 0);
+		gradient.addColorStop("0", "#ff8b07");
+		//gradient.addColorStop("0.1","#ff8b07");
+		gradient.addColorStop("1.0", "#fff000");
+		ctx.shadowColor   = '#555555';
+		ctx.shadowOffsetX = 0;
+		ctx.shadowOffsetY = 0;
+		ctx.shadowBlur    = 2;
+		//设置IE8和以下版本IE的颜色
+		if (document.all && !document.addEventListener){
+			//这里是>=IE8的调色板
+			ctx.strokeStyle   = '#FF8B07';
+		}else{
+			//这里是IE9以上的调色板
+			ctx.strokeStyle   = gradient;
+		}
+		ctx.lineWidth     = 7;
+		ctx.stroke();
+		ctx.shadowBlur = 0;
+		//写字
+		ctx.fillStyle  = '#535353';
+		ctx.font       = '16px 微软雅黑';
+		ctx.fillText('最新满意度', 20, 50);
+		ctx.fillStyle = '#ff7c08';
+		ctx.font      = '35px Arial';
+		ctx.fillText('98%', 26, 86);
+		ctx.fillStyle = '#62c3d0';
+		ctx.font      = '20px 微软雅黑';
+		ctx.fillText('湖南电子商务', 127, 40);
+		ctx.fillText('诚信示范企业', 127, 65);
+		ctx.fillStyle = '#535353';
+		ctx.font      = '12px 宋体';
+		ctx.fillText('全国旅游系统先进集体', 127, 90);
 	});
 	$(window).resize(function () {
 		repos();

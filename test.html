@@ -1,0 +1,9 @@
+<script>
+	$.getJSON('/common/websinfo_queryWebsInfos.action?submit=ajax&infoClass=692', function(result){
+		list = result;
+		for (var i=0; i<list.length; i++){
+			list[i].description = list[i].description.split(',');
+		}
+		console.log(list);
+	});
+</script>
