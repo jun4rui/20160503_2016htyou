@@ -341,19 +341,20 @@
 	#func-panel .func-menu-unit {
 		width: 128px;
 		height: 66px;
-		background-color: #f1eeee;
+		/*background-image:url(/static/2016/icon_func_menu_off.png);*/
+		/*background-color: #f1eeee;*/
 		border-bottom:1px solid #FFF;
+		text-indent: 45px;
 		color:#1facb6;
 		font:18px/66px '微软雅黑','Microsoft YaHei';
-		text-indent:45px;
 		cursor: pointer;
 	}
 	#func-panel .func-menu-unit.active {
 		width:125px;
 		border-left:3px solid #ff7e09;
-		background-color: #FDFDFE;
+		/*background-color: #FDFDFE;*/
+		text-indent: 42px;
 		color:#ff7e09;
-		text-indent:42px;
 		opacity:1;
 	}
 	#func-panel .func-menu-data {
@@ -392,13 +393,37 @@
 	<!--内容容器区域-->
 	<div id="func-panel">
 		<ul class="func-menu">
-			<li class="func-menu-unit active">旅游度假</li>
-			<li class="func-menu-unit">直航包机</li>
-			<li class="func-menu-unit">邮轮度假</li>
-			<li class="func-menu-unit">旅游签证</li>
-			<li class="func-menu-unit">WIFI租赁</li>
-			<li class="func-menu-unit">微信服务</li>
+			<li class="func-menu-unit" pos="18px">旅游度假</li>
+			<li class="func-menu-unit" pos="-48px">直航包机</li>
+			<li class="func-menu-unit" pos="-116px">邮轮度假</li>
+			<li class="func-menu-unit" pos="-182px">旅游签证</li>
+			<li class="func-menu-unit" pos="-250px">WIFI租赁</li>
+			<li class="func-menu-unit" pos="-312px">微信服务</li>
 		</ul>
+		<script>
+			$('#func-panel .func-menu-unit').click(function(){
+				$('#func-panel .func-menu-unit.active').css({
+					'background-image':'url(/static/2016/icon_func_menu_off.png)',
+					'background-color': '#F1EEEE',
+					'background-position':'10px '+$('#func-panel .func-menu-unit.active').attr('pos')
+				}).removeClass('active');
+				$(this).addClass('active').css({
+					'background-image':'url(/static/2016/icon_func_menu_on.png)',
+					'background-color':'#FDFDFE',
+					'background-position':'7px '+$('#func-panel .func-menu-unit.active').attr('pos')
+				});
+			});
+			$('#func-panel .func-menu').ready(function(){
+				$('#func-panel .func-menu .func-menu-unit').each(function(){
+					$(this).css({
+						'background':'url(/static/2016/icon_func_menu_off.png) no-repeat 10px '+$(this).attr('pos'),
+						'background-color': '#F1EEEE'
+					});
+				});
+				$('#func-panel .func-menu .func-menu-unit').eq(0).click();
+			});
+
+		</script>
 		<!--旅游度假内容-->
 		<div class="func-menu-data">
 			<div class="text-center title block" style="margin-top:1em;">
@@ -505,12 +530,6 @@
 		</div>
 		<!--/旅游度假内容-->
 	</div>
-	<script>
-		$('#func-panel .func-menu-unit').click(function(){
-			$('#func-panel .func-menu-unit.active').removeClass('active');
-			$(this).addClass('active');
-		});
-	</script>
 	<!--/内容容器区域-->
 	<!--<div class="content-section">-->
 	<!--画廊控制块区域-->
