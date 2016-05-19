@@ -247,12 +247,17 @@
 			z-index:99999;
 		}
 		#online-tools div.phone {
-			right:-178px;
+			right:0;
 			top:198px;
-			width:243px;
+		}
+		#online-tools div.phone-slide {
+			right:66px;
+			top:198px;
+			width:0px;
 			height:66px;
-			background:url(/static/2016/tools_phone_on.png) no-repeat top left;
-			z-index:9999999;
+			background:url(/static/2016/tools_phone_on.jpg) no-repeat top left;
+			position:absolute;
+			z-index:999;
 		}
 		#online-tools div.return2top {
 			right:0;
@@ -277,6 +282,7 @@
 		<a href="javascript:void(0)">
 			<div class="phone"></div>
 		</a>
+		<div class="phone-slide"></div>
 		<!--回到顶部-->
 		<a href="javascript:void(0)">
 			<div class="return2top" onclick="$('body,html').animate({scrollTop:0},600);"></div>
@@ -292,9 +298,9 @@
 			$('#online-tools div.weixin-slide').animate({'right':'66px','opacity':'0'});
 		});
 		$('#online-tools div.phone').mouseover(function(){
-			$('#online-tools div.phone').animate({'right':'0px'});
+			$('#online-tools div.phone-slide').animate({'width':'186px'});
 		}).mouseout(function(){
-			$('#online-tools div.phone').animate({'right':'-178px'});
+			$('#online-tools div.phone-slide').animate({'width':'0px'});
 		});
 	</script>
 	<!--/在线客服模块-->
