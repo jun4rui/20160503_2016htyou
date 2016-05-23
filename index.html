@@ -132,7 +132,7 @@
 				galleryVM.list = result.slice(0, 6); // 只取前6个
 			});
 			//特价旅游
-			$.getJSON('/common/adpic_queryAdPic.action?adPicType=220095&datatype=json', function (result) {
+			$.getJSON('/common/adpic_queryAdPic.action?adPicType=220091&datatype=json', function (result) {
 				discountVM.list = result.slice(0, 3); // 只取前3个
 			});
 			//出境游
@@ -725,7 +725,7 @@
 	<div class="tejia-panel" ms-controller="discount">
 		<!--特价信息单元-->
 		<div class="tejia-unit" ms-repeat-unit="list">
-			<div class="image" ms-attr-style="background-image:url(http://www.htyou.com/{{unit.picuri}})">
+			<div class="image" ms-css-background-image="url(http://www.htyou.com/{{unit.picuri}})">
 				<div class="discount">立省&yen;{{parseInt(unit.excol1*1.25)-unit.excol1}}</div>
 				<div class="title">{{unit.text}}</div>
 			</div>

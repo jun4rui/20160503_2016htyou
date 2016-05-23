@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="remoteDeploymentFS://&lt;ae034697-5af2-4955-9053-ca1ced41cdf6&gt;/WEB-INF/common/common_footer.html" charset="GBK" />
+    <file url="remoteDeploymentFS://&lt;ae034697-5af2-4955-9053-ca1ced41cdf6&gt;/WEB-INF/common/common_head_b.html" charset="GBK" />
+    <file url="remoteDeploymentFS://&lt;ae034697-5af2-4955-9053-ca1ced41cdf6&gt;/WEB-INF/common/common_head_b.html" charset="GBK" />
+    <file url="remoteDeploymentFS://&lt;ae034697-5af2-4955-9053-ca1ced41cdf6&gt;/WEB-INF/common/common_head_c.html" charset="GBK" />
+    <file url="remoteDeploymentFS://&lt;ae034697-5af2-4955-9053-ca1ced41cdf6&gt;/WEB-INF/common/common_head_c.html" charset="GBK" />
     <file url="file://$PROJECT_DIR$/static/2016/common.css" charset="GBK" />
     <file url="file://$PROJECT_DIR$/static/2016/common.js" charset="GBK" />
     <file url="file://$PROJECT_DIR$/static/2016/test-footer.html" charset="UTF-8" />

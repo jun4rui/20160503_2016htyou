@@ -10,6 +10,14 @@
           <option name="port" value="2222" />
         </fileTransfer>
       </webServer>
+      <webServer id="ae034697-5af2-4955-9053-ca1ced41cdf6" name="htyou_host" url="http://www.htyou.com">
+        <fileTransfer host="www.htyou.com" port="2222" rootFolder="/huatian/apache-tomcat-6.0.18-hebing/webapps/htonline-webroot" accessType="SFTP" password="dfccdfdedfdadfdfdfd9dfcfdfd8df9bdf98df99" username="userftp">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="2222" />
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>
