@@ -305,4 +305,83 @@
 		});
 	</script>
 	<!--/在线客服模块-->
+	<!--移动版下载广告-->
+	<style>
+		#mobile-download-panel {
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 205px;
+			z-index: 99999;
+		}
+
+		#mobile-download-panel .mobile-download {
+			display: block;
+			background-color: rgb(118, 172, 200);
+			text-align: center;
+		}
+
+		.mobile-download img {
+			margin: 0 auto;
+		}
+
+		#mobile-download-panel .mobile-download-mini {
+			display: none;
+			cursor: pointer;
+		}
+
+		#mobile-download-switch {
+			position: absolute;
+			right: 0;
+			top: 0;
+			cursor: pointer;
+		}
+	</style>
+	<div id="mobile-download-panel" style="display:none;">
+		<div class="mobile-download">
+			<img src="/static/bottom_mobile.png" alt="">
+		</div>
+		<div class="mobile-download-mini">
+			<img src="/static/bottom_mobile_mini.png" alt="">
+		</div>
+		<!--切换按钮-->
+		<div id="mobile-download-switch">
+			<img src="/images/2015_1/icon_close.png" alt="">
+		</div>
+		<!--/切换按钮-->
+	</div>
+	<script>
+		var mdpAutoClose = true;
+		function showMobileAD(){
+			$('#mobile-download-panel').css({'opacity':'0'}).show().animate({'opacity':'1'});
+			$('#mobile-download-panel .mobile-download').css('opacity', '0.9');
+			if (mdpAutoClose) {
+				setTimeout(function () {
+					$('#mobile-download-switch').click();
+				}, 60000);
+			}
+		}
+		$('#mobile-download-switch').click(function () {
+			mdpAutoClose = false;
+			$('#mobile-download-panel')
+					.animate({'left': '-100%'}, 1000, function () {
+						$('.mobile-download').hide();
+						$('#mobile-download-switch').hide();
+						$('.mobile-download-mini').css({'margin-top': '35px'}).show();
+					})
+					.animate({'left': '0px', 'width': '127px'}, 1000);
+		});
+		$('.mobile-download-mini').click(function () {
+			$('#mobile-download-panel')
+					.animate({'left': '-100%'}, 1000, function () {
+						$('.mobile-download-mini').css({'margin-top': '0'}).hide();
+						$('.mobile-download').show();
+						$('#mobile-download-switch').show();
+					})
+					.animate({'left': '0px', 'width': '100%'}, 1000);
+		});
+		showMobileAD();
+	</script>
+	<!--/移动版下载广告-->
 </div>
