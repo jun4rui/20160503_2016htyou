@@ -122,6 +122,11 @@
 							});
 				}
 			});
+			//左上角功能菜单 旅游度假 热门目的地
+			var funcmenuVM = avalon.define({
+				$id: 'funcmenu',
+				hotlist:[]
+			});
 
 			/*功能区域*/
 			avalon.scan();
@@ -201,6 +206,11 @@
 				for (var i=0; i<popareaVM.list.length; i++){
 					popareaVM.list[i].arealist = popareaVM.list[i].description.split(',');
 				}
+			});
+
+			//功能菜单 旅游度假 热门目的地
+			$.getJSON('/common/websinfo_queryHTClass.action?datatype=json&classId=737', function (result) {
+				funcmenuVM.hotlist = (result[0].notes).split(' ');
 			});
 
 
@@ -509,30 +519,11 @@
 				<input type="submit" value="" style="margin-top:20px; background:url(/static/2016/btn_search.png); width:107px; height:40px; border:0; cursor: pointer;">
 			</form>
 			<hr style="border:0; border-bottom:1px solid #facd89; margin-top:10px;">
-			<table style="font:12px/22px '宋体',simsun; margin-top:10px;">
+			<table style="font:12px/22px '宋体',simsun; margin-top:10px;" ms-controller="funcmenu">
 				<tr>
-					<td nowrap valign="top" style="color:#7d7d7d;">特色主题：</td>
+					<td nowrap valign="top" style="color:#7d7d7d;">热门目的地：</td>
 					<td>
-						<a href="" class="hot">上海迪士尼</a>
-						<a href="" class="hot">当地玩乐</a>
-						<a href="">毕业旅行</a>
-						<a href="" class="hot">暑假</a>
-						<a href="">遨游微度假</a>
-					</td>
-				</tr>
-				<tr>
-					<td nowrap valign="top" style="color:#7d7d7d;">踏青赏花：</td>
-					<td>
-						<a href="">东京</a>
-						<a href="">扬州</a>
-					</td>
-				</tr>
-				<tr>
-					<td nowrap valign="top" style="color:#7d7d7d;">错峰出行：</td>
-					<td>
-						<a href="" class="hot">日本</a>
-						<a href="">台湾</a>
-						<a href="" class="hot">巴厘岛</a>
+						<a href="http://www.htyou.com/tour/type/month/keyword{{unit}}.htm" ms-repeat-unit="hotlist">{{unit}}</a>
 					</td>
 				</tr>
 			</table>
