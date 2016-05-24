@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 	<meta charset="GBK">
-	<base href="http://www.htyou.com">
+	<!--<base href="http://www.htyou.com">-->
 	<meta http-equiv="x-ua-compatible" content="IE=9">
 	<meta name="KeyWords" content="湖南华天国际旅行社,湖南华天国旅,长沙旅行社,湖南旅行社"/>
 	<meta name="description" content="湖南华天国际旅行社有限责任公司是华天实业控股集团有限公司控股子公司，具有经营大陆居民赴台湾旅游 业务资质，可直接经营出境、入境、国内旅游业务，是中国国际航空运输协会（IATA）和中国国家民航总局批准的国际、国内客运代理人。湖南华 天国旅是省内首家进入并九度跻身“全国百强国际旅行社”的旅行社"/>
@@ -275,9 +275,9 @@
 	</script>
 </head>
 <body>
-<!--临时头部-->
-<div id="header-body"></div>
-<!--/临时头部-->
+<!--公共头部-->
+<#include "/WEB-INF/common/common_head_c.html" />
+<!--/公共头部-->
 
 <!--上部大型画廊/功能导航区域: 背景显示大图，控制块的右下角，左侧为功能导航区域-->
 <style>
@@ -364,8 +364,13 @@
 		left:129px;
 		top:0;
 		padding:8px;
-
+		display:none;
 		color:#434343;
+		font-family:'新宋体', '宋体', simsun;
+	}
+
+	#func-panel .func-menu-data span {
+		color:#ff7c08;
 	}
 
 	#func-panel .func-menu-data .title {
@@ -380,6 +385,8 @@
 	}
 	#func-panel .func-menu-data a {
 		color:#434343;
+		margin-right: 1.2em;
+		line-height:200%;
 	}
 	#func-panel .func-menu-data a.hot {
 		color:#ff7c08;
@@ -412,6 +419,8 @@
 					'background-color':'#FDFDFE',
 					'background-position':'7px '+$('#func-panel .func-menu-unit.active').attr('pos')
 				});
+				$('.func-menu-data').hide();
+				$('.func-menu-data').eq($(this).index()).show();
 			});
 			$('#func-panel .func-menu').ready(function(){
 				$('#func-panel .func-menu .func-menu-unit').each(function(){
@@ -529,6 +538,102 @@
 			</table>
 		</div>
 		<!--/旅游度假内容-->
+		<!--直航包机-->
+		<div class="func-menu-data" style="font-family: '微软雅黑', 'Microsoft YaHei';">
+			<div class="text-center title block" style="margin-top: 1em; font-size: 18px; padding-bottom: .5em; border-bottom: 1px solid #ff7c08;">
+				2016 暑假包机
+			</div>
+			<table style="margin:0 auto; font-size:14px; line-height:200%;">
+				<tr>
+					<td style="text-align:right;">长滩岛：</td>
+					<td style=""><span>2016-02-27</span> - <span>2016-09-12</span></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;">岘港：</td>
+					<td style=""><span>2016-02-27</span> - <span>2016-09-12</span></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;">下龙港：</td>
+					<td style=""><span>2016-02-27</span> - <span>2016-09-12</span></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;">宿务：</td>
+					<td style=""><span>2016-02-27</span> - <span>2016-09-12</span></td>
+				</tr>
+			</table>
+			<div class="text-center title block" style="margin-top: 1em; font-size: 18px; padding-bottom: .5em; border-bottom: 1px solid #ff7c08;">
+				2016 春节包机
+			</div>
+			<table style="margin:0 auto; font-size:14px; line-height:200%;">
+				<tr>
+					<td style="text-align:right;">长滩岛：</td>
+					<td style=""><span>2016-02-27</span> - <span>2016-09-12</span></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;">岘港：</td>
+					<td style=""><span>2016-02-27</span> - <span>2016-09-12</span></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;">下龙港：</td>
+					<td style=""><span>2016-02-27</span> - <span>2016-09-12</span></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;">宿务：</td>
+					<td style=""><span>2016-02-27</span> - <span>2016-09-12</span></td>
+				</tr>
+			</table>
+		</div>
+		<!--/直航包机-->
+		<!--邮轮度假-->
+		<div class="func-menu-data">
+			<div class="title block" style="margin-top: 1em; font-size: 18px; padding-bottom: .5em; border-bottom: 1px solid #ff7c08;">
+				邮轮：
+			</div>
+			<div class="content">
+				<a href="#" class="hot">歌诗达邮轮</a> <a href="">皇家加勒比邮轮</a> <a href="">公主邮轮</a> <a href="">地中海邮轮</a>
+			</div>
+			<div class="title block" style="margin-top: 1em; font-size: 18px; padding-bottom: .5em; border-bottom: 1px solid #ff7c08;">
+				时间：
+			</div>
+			<div class="content">
+				<a href="" class="hot">1月</a>
+				<a href="">2月</a>
+				<a href="">3月</a>
+				<a href="">4月</a>
+				<a href="">5月</a>
+				<a href="">6月</a>
+				<a href="">7月</a>
+				<a href="">8月</a>
+				<a href="">9月</a>
+				<a href="">10月</a>
+				<a href="">11月</a>
+				<a href="">12月</a>
+			</div>
+			<div class="title block" style="margin-top: 1em; font-size: 18px; padding-bottom: .5em; border-bottom: 1px solid #ff7c08;">
+				目的地：
+			</div>
+			<div class="content">
+				<a href="" class="hot">日本</a>
+				<a href="">台湾</a>
+				<a href="" class="hot">巴厘岛</a>
+				<a href="">韩国</a>
+				<a href="" class="hot">迪拜</a>
+				<a href="" class="hot">欧洲</a>
+				<a href="">美国</a>
+				<a href="">泰国</a>
+				<a href="" class="hot">毛里求斯</a>
+			</div>
+		</div>
+		<!--/邮轮度假-->
+		<!--旅游签证-->
+		<div class="func-menu-data"></div>
+		<!--/旅游签证-->
+		<!--WIFI租赁-->
+		<div class="func-menu-data"></div>
+		<!--/WIFI租赁-->
+		<!--微信服务-->
+		<div class="func-menu-data"></div>
+		<!--/微信服务-->
 	</div>
 	<!--/内容容器区域-->
 	<!--<div class="content-section">-->
@@ -1015,10 +1120,23 @@
 		<!--左侧列表,广告区域-->
 		<div class="pointlist-panel">
 			<div class="point-title">
-				<span>出境游热门景点</span>
+				<span>出境跟团游</span>
 			</div>
 			<div class="point-list">
 				<a ms-attr-href="http://www.htyou.com/tour/type/month/keyword{{encodeURI(unit)}}.htm" ms-repeat-unit="point">{{unit}}</a>
+			</div>
+			<div class="point-title">
+				<span>出境签证</span>
+			</div>
+			<div class="point-list">
+				<a href="http://www.htyou.com/tour/visa/美国.htm">美国</a>
+				<a href="http://www.htyou.com/tour/visa/德国.htm">德国</a>
+				<a href="http://www.htyou.com/tour/visa/法国.htm">法国</a>
+				<a href="http://www.htyou.com/tour/visa/意大利.htm">意大利</a>
+				<a href="http://www.htyou.com/tour/visa/日本.htm">日本</a>
+				<a href="http://www.htyou.com/tour/visa/韩国.htm">韩国</a>
+				<a href="http://www.htyou.com/tour/visa/澳大利亚.htm">澳大利亚</a>
+				<a href="http://www.htyou.com/tour/visa/新加坡.htm">新加坡</a>
 			</div>
 			<div class="section-ad-left-panel">
 				<a ms-attr-href="http://www.htyou.com/{{leftAD.alink}}"><img ms-attr-src="http://www.htyou.com/{{leftAD.picuri}}" ms-attr-alt="{{leftAD.text}}"></a>
@@ -1396,9 +1514,9 @@
 <!--右侧功能条-->
 <!--/右侧功能条-->
 
-<!--临时底部 -->
-<div id="footer-body"></div>
-<!--/临时底部-->
+<!--公共底部 -->
+<#include "/WEB-INF/common/common_footer.html" />
+<!--/公共底部-->
 <script>
 	function repos() {
 		$('.gallery-controller').css({'right': ($(window).width() - 1200) / 2});
@@ -1406,13 +1524,23 @@
 		$('#online-tools').css({'bottom':($(window).height()-330)/2});
 	}
 	$(document).ready(function () {
-		$('#header-body').load('/static/2016/test-header.html');
-		$('#footer-body').load('/static/2016/test-footer.html');
+		//$('#header-body').load('/static/2016/test-header.html');
+		//$('#footer-body').load('/static/2016/test-footer.html');
 
 		//重定位浮动元素
 		repos();
 		//点击画廊第一个元素
 		$('.gallery-controller .controller-unit').eq(0).click();
+
+		//画廊自动滚动
+		var galleryFlag = 0;
+		setInterval(function(){
+			galleryFlag++;
+			if (galleryFlag>$('.gallery-controller .controller-unit').length){
+				galleryFlag = 0;
+			}
+			$('.gallery-controller .controller-unit').eq(galleryFlag).click();
+		},10000);
 
 		//兼容IE678的圆角
 		if (window.PIE) {
@@ -1423,9 +1551,9 @@
 
 		//载入5秒后再次执行repos()
 		setTimeout(function(){
-			repos();
-		}
-		,50000);
+					repos();
+				}
+				,50000);
 	});
 
 	//绘制canvas

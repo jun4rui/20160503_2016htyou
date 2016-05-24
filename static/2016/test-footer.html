@@ -149,21 +149,21 @@
 						<img src="/static/2016/logo_mobile.png" alt="">
 						<!--<span style="color: #ff7c08; font-size: 18px; display: block; font-family: '微软雅黑', 'Microsoft YaHei';">订阅特价、促销信息</span>-->
 						<!--<div style="width:250px; height:34px; background-image:url(/static/2016/subscription_input.png);position:relative;">-->
-							<!--<input type="text" style="outline: none; width: 195px; height: 32px; border: 1px solid #DDD; padding: 0; position: absolute; top: 0; left: 0;">-->
-							<!--<div style="width: 53px; height: 34px; position: absolute; top: 0px; left: 197px;"></div>-->
+						<!--<input type="text" style="outline: none; width: 195px; height: 32px; border: 1px solid #DDD; padding: 0; position: absolute; top: 0; left: 0;">-->
+						<!--<div style="width: 53px; height: 34px; position: absolute; top: 0px; left: 197px;"></div>-->
 						<!--</div>-->
 						<!--<table style="margin-top: 1em; border: 0; border-spacing: 0;">-->
-							<!--<tr>-->
-								<!--<td>-->
-									<!--<span>-->
-										<!--<img src="/static/2016/erweima.png" alt="" style="width: 110px;height:110px;">-->
-									<!--</span>-->
-								<!--</td>-->
-								<!--<td style="font-size: 12px; font-family: '宋体', simsun;">-->
-									<!--扫描下载华天游客户端<br>-->
-									<!--手机预定，优惠多多-->
-								<!--</td>-->
-							<!--</tr>-->
+						<!--<tr>-->
+						<!--<td>-->
+						<!--<span>-->
+						<!--<img src="/static/2016/erweima.png" alt="" style="width: 110px;height:110px;">-->
+						<!--</span>-->
+						<!--</td>-->
+						<!--<td style="font-size: 12px; font-family: '宋体', simsun;">-->
+						<!--扫描下载华天游客户端<br>-->
+						<!--手机预定，优惠多多-->
+						<!--</td>-->
+						<!--</tr>-->
 						<!--</table>-->
 					</td>
 				</tr>
@@ -195,9 +195,9 @@
 	</div>
 
 	<div class="line-content bottom-bar-2">
-		Copyright © 2015 <a href="http://www.htyou.com" target="_blank" class="link-color">www.htyou.com</a>
+		Copyright ? 2015 <a href="http://www.htyou.com" target="_blank" class="link-color">www.htyou.com</a>
 		湖南华天国际旅行社有限责任公司版权所有<br>
-		旅行社业务许可证编号：L-HUN-CJ00001 湘ICP备12003410号<br>
+		旅行社业务许可证编号：L-HUN-CJ00001 湘ICP备：湘B2-20070083-1<br>
 		经营范围：国内旅游、入境旅游、出境旅游 法定代表人：孙根石<br>
 		湖南华天旅行社地址：长沙市芙蓉区解放东路300号 公司投诉电话：0731-84153558<br>
 		全省统一服务热线：<a href="tel:073155555555" class="link-color">0731–55555555</a> 湖南省旅游局投诉电话：0731-84717614<br>
@@ -381,7 +381,10 @@
 					})
 					.animate({'left': '0px', 'width': '100%'}, 1000);
 		});
-		showMobileAD();
+		//限定只有首页才显示移动版广告
+		if (window.location.href=='http://www.htyou.com/'){
+			$('#mobile-download-switch').click();
+		}
 	</script>
 	<!--/移动版下载广告-->
 </div>
