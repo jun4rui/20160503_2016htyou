@@ -330,7 +330,8 @@
 			text-shadow: 1px 1px 1px #555;
 			line-height: 60px;
 		}
-		#nav-panel .nav-unit:hover {
+		#nav-panel .nav-unit:hover,
+		#nav-panel .nav-unit.current {
 			color: #FF7C08;
 		}
 	</style>
@@ -362,6 +363,32 @@
 			</a>
 		</div>
 	</div>
+	<script>
+		//根据当前url，高亮导航条的相应文字
+		(function(window){
+			var currentFlag = 0;
+			if (window.location.href=='http://www.htyou.com/tourteam/isnative/2.htm')
+				currentFlag = 1;
+			if (window.location.href=='http://www.htyou.com/tourteam/isnative/4.htm')
+				currentFlag = 2;
+			if (window.location.href=='http://www.htyou.com/tourteam/isnative/1.htm')
+				currentFlag = 3;
+			if (window.location.href=='http://www.htyou.com/tour/visa_gotoSecond.action')
+				currentFlag = 4;
+			if (window.location.href=='http://www.htyou.com/hotel.htm')
+				currentFlag = 5;
+			if (window.location.href=='http://www.htyou.com/common/websinfo_gotoMeetingThree.action?queryId=323')
+				currentFlag = 6;
+			if (window.location.href=='http://www.htyou.com/ticket.htm')
+				currentFlag = 7;
+			//当前页面标志不是0（不是首页），则高亮之
+			if (currentFlag!=0){
+				$('#nav-panel .nav-unit').eq(currentFlag).addClass('current');
+			}
+		})(window);
+
+
+	</script>
 	<!--/导航条-->
 </div>
 <!--/Header结束-->
